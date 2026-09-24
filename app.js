@@ -16820,7 +16820,7 @@ const quizzes = [
         "b": "wyłącznie reguły interwencyjnego postępowania.",
         "c": "wyłącznie elementy techniki i taktyki interwencyjnej.",
         "d": "wyłącznie zadania do wykonania, podmioty i charakter zdarzenia.",
-        "answer": "a",
+        "answer": "d",
         "answerConfirmedBy": []
     },
     {

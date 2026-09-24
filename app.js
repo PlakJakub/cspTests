@@ -1,7 +1,7 @@
 const quizzes = [
   {
     name: "ŚPB",
-    quiz: [
+    quiz:[
     {
         "question": "Policjant może nałożyć osobie kajdanki na ręce trzymane z przodu jeżeli:",
         "a": "Prewencyjnie używa kajdanek.",
@@ -9,7 +9,8 @@ const quizzes = [
         "c": "Istnieje duże prawdopodobieństwo stawiania czynnego oporu",
         "d": "Istnieje duże prawdopodobieństwo wystąpienia zachowania mogącego zagrażać mieniu",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "945db2c0-b10e-4610-a081-01e72aa38bc3"
     },
     {
         "question": "Kaftana bezpieczeństwa lub pasa obezwładniającego używa się jeżeli użycie innych środków przymusu bezpośredniego jest niemożliwe, w celu:",
@@ -18,7 +19,8 @@ const quizzes = [
         "c": "Wyegzekwowania zachowania zgodnego z wydanym poleceniem.",
         "d": "Przeciwdziałania czynnościom zmierzającym bezpośrednio do zamachu na wolność policjanta.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "8f82fdb6-c0eb-484a-b435-cb229a882778"
     },
     {
         "question": "Kask zabezpieczający można użyć w przypadku:",
@@ -27,7 +29,8 @@ const quizzes = [
         "c": "Zapewnienia bezpieczeństwa konwoju",
         "d": "Przeciwdziałania czynnościom zmierzającym do autoagresji.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "ee38f339-9633-4aef-922c-d901daeca7f1"
     },
     {
         "question": "Środków przymusu bezpośredniego używa się:",
@@ -36,7 +39,8 @@ const quizzes = [
         "c": "W sposób najlepszy do osiągnięcia celów tego użycia",
         "d": "Wybierając środek o możliwie jak najmniejszej dolegliwości",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "d8d134ca-cc08-495e-b955-355dbeb6cc70"
     },
     {
         "question": "Podstawą prawną wykorzystania środków przymusu bezpośredniego jest:",
@@ -45,7 +49,8 @@ const quizzes = [
         "c": "Rozporządzenie Rady Ministrów z dnia 26 kwietnia 2013 r. o środkach przymusu bezpośredniego",
         "d": "Rozporządzenie Rady Ministrów Z dnia 26 maja 2013 r. o środkach przymusu bezpośredniego i bp.",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "00f559c3-3652-48fa-9df2-725cede5e32e"
     },
     {
         "question": "Przekazanie notatki przełożonemu w przypadku wykorzystania Śpb następuje, gdy doszło do:",
@@ -54,7 +59,8 @@ const quizzes = [
         "c": "Zniszczenia środka przymusu bezpośredniego.",
         "d": "Wystąpienia innych nie widocznych objawów zagrożenia zdrowia.",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "26b2a45f-2d3b-4c9a-b8bc-f75b847ccecf"
     },
     {
         "question": "Pojazd służbowy poruszający się jako pojazd uprzywilejowany można wykorzystać jako środek przymusu bezpośredniego w przypadku:",
@@ -63,7 +69,8 @@ const quizzes = [
         "c": "Przecíwdziałania bezpośredniemu zamachowi na ochraniane przez policjanta obszary obiekty lub urządzenia.",
         "d": "Przeciwdziałania czynnościom zmierzającym bezpośrednio do zamachu na życie, zdrowie lub wolność uprawnionego lub innej osoby.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "f9eeaedd-7944-4786-a542-807b6a412c97"
     },
     {
         "question": "Środki przeznaczone do pokonywania zamknięć budowlanych i innych przeszkód",
@@ -72,7 +79,8 @@ const quizzes = [
         "c": "Umożliwienia uprawnionym wejścia do pomieszczeń lub innych miejsc.się go z micjsca zatrzymania.",
         "d": "Zatrzymania pojazdu albo unieruchomienia zatrzymanego pojazdu, gdy zachodzi obawa oddalenia się go z miejsca zatrzymania.",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "440f168e-64d1-4888-8fc4-80a7c2b6cf36"
     },
     {
         "question": "Do środków pirotechnicznych o właściwościach ogłuszających lub olśniewających zalicza się w szczególności:",
@@ -81,7 +89,8 @@ const quizzes = [
         "c": "Granaty obezwładniające, granaty olśniewające, petardy oraz granaty dymne.",
         "d": "Granaty hukowo-błyskowe, także z zawartością gazu łzawiącego, petardy oraz granaty dymne.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "586ae76f-f1e4-40b8-ab15-a9633b90b65a"
     },
     {
         "question": "Siatkę obezwładniającą używa się lub wykorzystuje w celu unieruchomienia:",
@@ -90,7 +99,8 @@ const quizzes = [
         "c": "Osoby i zwierzęcia.",
         "d": "pojazdu i zwierzęcia.",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "5c624395-be70-4d5b-99b6-2bfd85b82c72"
     },
     {
         "question": "Pałki służbowej NIE używa się w celu:",
@@ -99,7 +109,8 @@ const quizzes = [
         "c": "Ujęcia osoby, udaremnienia jej ucieczki lub pościgu za tą osobą",
         "d": "Przeciwdziałania naruszeniu porządku lub bezpieczeństwa publicznego",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "b672cf0c-4282-4ddd-bdec-b0d7a0eb98b0"
     },
     {
         "question": "Wodnych środków obezwładniających można użyć lub wykorzystać przez zastosowanie urządzeń do tego przeznaczonych, w przypadku:",
@@ -108,7 +119,8 @@ const quizzes = [
         "c": "Ujęcia osoby, udaremnienia jej ucieczki lub pościgu za tą osobą",
         "d": "Zatrzymania osoby, udaremnienia jej ucieczki lub pościgu za tą osobą.",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "a13aeaf5-4cfd-4fba-886b-c0af40d73617"
     },
     {
         "question": "Użycie lub wykorzystanie środków przymusu bezpośredniego przez pododdział zwarty następuje:",
@@ -117,7 +129,8 @@ const quizzes = [
         "c": "Na rozkaz właściwego miejscowo komendanta wojewódzkiego (Stołecznego) Policji",
         "d": "Na polecenie właściwego miejscowo komendanta wojewódzkiego (Stołecznego) Policji.",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "034b2aff-3b93-457f-8a21-07d8074cb8aa"
     },
     {
         "question": "Wobec nieletniego doprowadzonego do policyjnej izby dziecka NIE wolno użyć w przypadku",
@@ -126,7 +139,8 @@ const quizzes = [
         "c": "Kajdanek zakładanych na nogi.",
         "d": "Przedmiotów przeznaczonych do obezwładniania za pomocą energii elektrycznej",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "c98cc768-d66c-41e5-92e6-ed55951b4ccc"
     },
     {
         "question": "W przypadku użycia środków przymusu bezpośrednich go wobec nieletniego umieszczonego policyjnej izbie dziecka uprawniony:",
@@ -135,7 +149,8 @@ const quizzes = [
         "c": "Każdorazowo przekazuje przełożonemu raport z użycia Środka przymusu bezpośredniego, niezależnie od rodzaju i skutku tego użycia",
         "d": "przekazuje przełożonemu notatkę w przypadku, gdy w wyniku użycia środka przymusu bezpośredniego doszło do zranienia, śmierci nieletniego lub szkody w mieniu.",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "d11b0aff-ce07-4372-81f3-761fe0a3a992"
     },
     {
         "question": "W przypadku skutkowego użycia śpb policjant może odstąpić od udzielenia pierwszej pomocy w przypadku, gdy:",
@@ -144,7 +159,8 @@ const quizzes = [
         "c": "Udzielenie pomocy osobie poszkodowanej zostało zapewnione przez inne osoby.",
         "d": "Jest to kobieta o widocznej ciąży i został wezwany podmiot świadczący medyczne czynności ratunkowe.",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "56684621-5d37-48c5-a223-3343fa674260"
     },
     {
         "question": "W przypadku, gdy w wyniku wykorzystania śpb nastąpiło zranienie zwierzęcia policjant ma obowiązek:",
@@ -153,7 +169,8 @@ const quizzes = [
         "c": "Zawiadomić o zdarzeniu właściwego przełożonego lub osobę pełniącą służbę dyżurną",
         "d": "W każdym przypadku wykorzystać następnie broń palną do uśmiercenia zwierzęcia w celu skrócenia jego cierpień.",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "54269d13-da7e-4d1f-bbc2-3cb0213844d8"
     },
     {
         "question": "W przypadku, gdy w wyniku użycia śpb nastąpiło zranienie osoby, właściwy przełożony lub osoba pełniąca służbę dyżurną między innymi ma obowiązek zapewnić policjantowi, który użył tego środka:",
@@ -162,7 +179,8 @@ const quizzes = [
         "c": "Udział w szkoleniu z zakresu stosowania środka, którego użyt",
         "d": "Niezbędną pomoc w szczególności psychologiczną lub prawna.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "7a2f00ea-23c1-4ee5-b764-2c521db2ddb8"
     },
     {
         "question": "Siłę fizyczną można użyć lub wykorzystać w następujących przypadkach:",
@@ -171,7 +189,8 @@ const quizzes = [
         "c": "Przeciwdziałaniu tylko bezpieczeństwa publicznego",
         "d": "Przeciwdziałania naruszeniu porządku lub bezpieczeństwa publicznego.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "508c165b-2b6b-4dc0-b5a9-1b7a8be55a0d"
     },
     {
         "question": "Konia służbowego jako środka przymusu bezpośredniego można użyć w celu:",
@@ -180,7 +199,8 @@ const quizzes = [
         "c": "Udaremnienia ucieczki osoby zatrzymanej",
         "d": "Przeciwdziałania naruszeniu porządku lub bezpieczeństwa publicznego",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "0cacf935-82a9-467d-aee4-b9ec55107e19"
     },
     {
         "question": "Decyzję o użyciu lub wykorzystaniu środków przymusu bezpośredniego w postaci pasa obezwładniającego podczas konwoju wydaje:",
@@ -189,7 +209,8 @@ const quizzes = [
         "c": "Komendant Wojewódzki Policji.",
         "d": "Kierownik jednostki organizacyjnej Policji albo osoby przez niego upoważnione, a w razie ich nieobecności dyżurny jednostki",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "694070cb-049c-418c-8e2a-78d0b37ab6c7"
     },
     {
         "question": "Z użycia i wykorzystania środków przymusu bezpośredniego i broni palnej policjant sporządza:",
@@ -198,7 +219,8 @@ const quizzes = [
         "c": "Nie ma obowiązku dokumentowania.",
         "d": "Notatke służbowa tylko w przypadku skutkowego użycia środków przymusu bezpośredniego",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "1b2a7b11-06b4-4e4c-9bd7-5bcdc1ab2dc0"
     },
     {
         "question": "Używając siły fizycznej nie wolno zadawać uderzeń, chyba, że policjant działa:",
@@ -207,7 +229,8 @@ const quizzes = [
         "c": "W celu odparcia zamachu na życie lub zdrowie.",
         "d": "W sytuacji zagrożenia naruszenia porządku publicznego",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "f3c81bbd-a3c4-48cc-a97d-e3adf9f23529"
     },
     {
         "question": "Pałki służbowej NIE stosuje się wobec osób w stosunku do których użyto:",
@@ -216,7 +239,8 @@ const quizzes = [
         "c": "Psa służbowego.",
         "d": "Chemicznych środków obezwładniających.",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "78ca643a-79e5-4299-a596-ffc3b61aa173"
     },
     {
         "question": "Wolno zadawać uderzenia i pchnięcia pałką służbową we wszystkie części ciała w celu:",
@@ -225,7 +249,8 @@ const quizzes = [
         "c": "Odparcia bezpośredniego zamachu na życie lub zdrowie własne lub innej osoby",
         "d": "Odparcia pośredniego i prawnego zamachu na życie lub zdrowie własne lub innej osoby.",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "605d4f78-770d-429c-b16b-5b59246d3260"
     },
     {
         "question": "Kierownik jednostki organizacyjnej Policji albo osoby przez niego upoważnione, a w razie ich nieobecności - dyżurny jednostki podejmuje decyzję o użyciu lub wykorzystaniu środków przymusu bezpośredniego w postaci",
@@ -234,7 +259,8 @@ const quizzes = [
         "c": "pocisków niepenetracyjnych.",
         "d": "wodnych środków obezwładniających.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "ef15f252-ade4-42fd-b15a-d73718f30e03"
     },
     {
         "question": "Siatki obezwładniającej policjant może użyć lub ją wykorzystać w celu",
@@ -243,7 +269,8 @@ const quizzes = [
         "c": "pokonania czynnego i biernego oporu.",
         "d": "przeciwdziałania naruszeniom porządku lub bezpieczeństwa publicznego.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "3e1f9dd6-5043-4478-b6d9-5b87af88b586"
     },
     {
         "question": "Pałki służbowej policjant może użyć lub wykorzystać w celu",
@@ -252,7 +279,8 @@ const quizzes = [
         "c": "przeciwdziałania autoagresji.",
         "d": "przeciwdziałania niszczeniu mienia",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "b43091ae-7025-4011-8449-6c69f37c7669"
     },
     {
         "question": "Komendant Główny Policji, Komendant CBŚP Policji, Komendant BSW Policji, dowódca Centralnego Pododdziału Kontrterrorystycznego Policji „BOA\", Komendant Centralnego Biura Zwalczania Cyberprzestępczości, właściwy miejscowo komendant wojewódzki (Stołeczny) Policji lub osoby przez nich upoważnione, podejmują decyzję o użyciu lub wykorzystaniu środków przymusu bezpośredniego w postaci",
@@ -261,7 +289,8 @@ const quizzes = [
         "c": "środków pirotechnicznych.",
         "d": "wodnych środków obezwładniających.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "88a170b8-5538-4409-a593-7dc90af83869"
     },
     {
         "question": "Psa służbowego policjant może użyć w celu",
@@ -270,7 +299,8 @@ const quizzes = [
         "c": "przeciwdziałania czynnościom zmierzającym do autoagresji.",
         "d": "ujęcia osoby, udaremnienia jej ucieczki lub pościgu za tą osobą.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "25dab24a-d2a6-4c99-9c94-46a8a322aeeb"
     },
     {
         "question": "Konia służbowego policjant może użyć się w celu",
@@ -279,7 +309,8 @@ const quizzes = [
         "c": "kontroli przemieszczania się grupy osób, wykorzystując jego masę.",
         "d": "zatrzymania osoby, udaremnienia jej ucieczki, lub pościgu za ta osobą.",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "51700296-71b0-4eb4-85b3-74afaeef0519"
     },
     {
         "question": "Policjant używając pocisków niepenetracyjnych w celu obezwładnienia osoby nie powinien celować w",
@@ -288,7 +319,8 @@ const quizzes = [
         "c": "Poniżej pasa.",
         "d": "Głowę lub szyję.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "9e536303-ceaa-4d32-b8be-e28107e8f030"
     },
     {
         "question": "Przedmiotów przeznaczonych do obezwładniania osób za pomocą energii elektrycznej policjant może użyć w stosunku do osób co do których wcześniej użył",
@@ -297,7 +329,8 @@ const quizzes = [
         "c": "pasa obezwładniającego.",
         "d": "chemicznych środków obezwładniających.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "75567b54-0fde-4dd1-aa5c-ae71a86d2072"
     },
     {
         "question": "Przedmioty przeznaczone do obezwładniania osób za pomocą energii elektrycznej nie stosuje się w celu:",
@@ -306,7 +339,8 @@ const quizzes = [
         "c": "przeciwdziałania niszczeniu mienia.",
         "d": "zapewnienia bezpieczeństwa konwoju lub doprowadzenia.",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "438c87f1-b030-4879-8b81-59bda9bc7f6c"
     },
     {
         "question": "Kolczatkę drogowa policjant może wykorzystać w celu",
@@ -315,7 +349,8 @@ const quizzes = [
         "c": "unieszkodliwienia zwierzęcia, którego zachowanie zagraża życiu i zdrowiu policjanta lub innych osób.",
         "d": "zatrzymania motocyklisty, który jest sprawca rozboju z użyciem niebezpiecznego przedmiotu i jedzie z dużą prędkością.",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "b1c1fb28-0da4-45cb-a673-aa217e41c920"
     },
     {
         "question": "Pojazdu służbowego policjant nie wykorzystuje w celu",
@@ -324,7 +359,8 @@ const quizzes = [
         "c": "ujęcia osoby, udaremnienia jej ucieczki lub pościgu za tą osoba.",
         "d": "zatrzymania osoby, udaremnienia jej ucieczki lub pościgu za tą osobą.",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "2a37209e-51c3-4057-b113-67a1a28e419a"
     },
     {
         "question": "Użycie środka przymusu bezpośredniego należy rozumieć jako zastosowanie środka przymusu bezpośredniego wobec",
@@ -333,7 +369,8 @@ const quizzes = [
         "c": "zwierzęcia.",
         "d": "przeszkody.",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "8e296940-75fc-4314-ad4d-980c9da00abc"
     },
     {
         "question": "W przypadku konieczności przeciwdziałania naruszeniu porządku lub bezpieczeństwa publicznego policjant może użyć",
@@ -342,7 +379,8 @@ const quizzes = [
         "c": "kolczatki drogowej.",
         "d": "kask zabezpieczający.",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "78d22e63-98d6-4497-aee5-a30670396ff3"
     },
     {
         "question": "Zakazy podmiotowe użycia środków przymusu bezpośredniego z wyjątkiem siły fizycznej w postaci technik obezwładniania dotyczą",
@@ -351,7 +389,8 @@ const quizzes = [
         "c": "Kobiet o widocznej ciąży.",
         "d": "osób niepełnosprawnych.",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "6f413edb-9926-4fee-b19a-ac3666b7e701"
     },
     {
         "question": "Wykorzystanie środka przymusu bezpośredniego należy rozumieć jako zastosowanie środka przymusu bezpośredniego wobec",
@@ -360,7 +399,8 @@ const quizzes = [
         "c": "inwalidów.",
         "d": "zwierzęcia.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "10c99400-6665-49c3-a393-49ec15702843"
     },
     {
         "question": "Przed użyciem środka przymusu bezpośredniego policjant powinien",
@@ -369,7 +409,8 @@ const quizzes = [
         "c": "Użyć środków przymusu bezpośredniego bez uprzedzenia, jeżeli występuje bezpośrednie zagrożenie życia, zdrowia lub wolności policjanta lub innej osoby.",
         "d": "uprzedzić o użyciu środków przymusu bezpośredniego, jeżeli zwłoka groziłaby niebezpieczeństwem dla dobra chronionego prawem, a środków przymusu bezpośredniego używa się prewencyjnie.",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "95e835fb-bfb7-4389-bb75-48fca21b70f3"
     },
     {
         "question": "Prewencyjnie policjant może użyć środki przymusu bezpośredniego w postaci",
@@ -378,7 +419,8 @@ const quizzes = [
         "c": "siły fizycznej w postaci technik obrony",
         "d": "siły fizycznej w postaci technik obezwładniania.",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "8a544d67-6109-4609-9a01-5b9b6bd7c27c"
     },
     {
         "question": "Siłę fizyczną policjant może użyć lub wykorzystać w celu",
@@ -387,7 +429,8 @@ const quizzes = [
         "c": "neutralizacji przedmiotów i urządzeń.",
         "d": "pokonania biernego i czynnego oporu.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "a4c5246f-1d2d-4f39-a688-3f8746a1d144"
     },
     {
         "question": "Siły fizycznej policjant można użyć prewencyjnie w postaci technik",
@@ -396,7 +439,8 @@ const quizzes = [
         "c": "obezwładnienia.",
         "d": "transportowych.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "bbdf5dae-26ff-4129-881c-ab7496c4f6d6"
     },
     {
         "question": "Kajdanek policjant może użyć w celu pokonania",
@@ -405,7 +449,8 @@ const quizzes = [
         "c": "czynnego oporu.",
         "d": "czynnego i biernego oporu.",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "821c82cc-b640-4c30-8c8f-39d362293593"
     },
     {
         "question": "Wobec kobiety w widocznej ciąży leżącej na torach tramwajowych i niepodporządkowującej się wezwaniu do ich opuszczenia policjant ma prawo użyć środka przymusu bezpośredniego w postaci",
@@ -414,7 +459,8 @@ const quizzes = [
         "c": "siły fizycznej w postaci technik obezwładnienia.",
         "d": "kajdanek zakładanych na ręce trzymane z przodu.",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "0bca40fd-42ee-422c-b8bd-0139b4784d11"
     },
     {
         "question": "Kajdanek zakładanych na nogi używa się równocześnie z",
@@ -423,7 +469,8 @@ const quizzes = [
         "c": "pasem obezwładniającym.",
         "d": "kajdankami zakładanymi na ręce.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "44b39dad-23c0-42d2-a8be-0be972c32e21"
     },
     {
         "question": "Kajdanek zespolonych lub kajdanek zakładanych na nogi policjant może użyć wyłącznie wobec osób",
@@ -432,7 +479,8 @@ const quizzes = [
         "c": "pozbawionych wolności.",
         "d": "stawiających czynny opór.",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "d2b40743-c7e8-4577-9b87-fc3335e30659"
     },
     {
         "question": "Obrona konieczna polega na odpieraniu ............. na jakiekolwiek dobro chronione prawem:",
@@ -441,7 +489,8 @@ const quizzes = [
         "c": "bezpośredniego i bezprawnego",
         "d": "bezpośredniego i groźnego",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "54cef59a-c42f-4cee-9c3a-050cc880072c"
     },
     {
         "question": "Siłę fizyczną prewencyjnie można stosować w postaci technik:",
@@ -450,7 +499,8 @@ const quizzes = [
         "c": "obrony",
         "d": "transportowych",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "10c36da0-eb7e-4f6f-831f-eef883e8b4b0"
     },
     {
         "question": "Użycie śpb- należy przez to rozumieć:",
@@ -459,7 +509,8 @@ const quizzes = [
         "c": "unieruchomienie pojazdu lub pokonanie przeszkody",
         "d": "zablokowanie pojazdu",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "5e50e52e-06f7-422d-bc3a-05854ee30d31"
     },
     {
         "question": "W przypadku użycia śpb wobec nieletniego umieszczonego w PID, jeżeli skutkiem tego użycia nie było zranienie osoby, policjant przekazuje notatkę:",
@@ -468,7 +519,8 @@ const quizzes = [
         "c": "dyżurnemu jednostki",
         "d": "sędziemu rodzinnemu",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "1c8ff2f0-9677-41ea-a5e8-ae954760ab0b"
     },
     {
         "question": "Kaftana bezpieczeństwa używa się w przypadkach:",
@@ -477,7 +529,8 @@ const quizzes = [
         "c": "zapewnienie bezpieczeństwa konwoju",
         "d": "przeciwdziałania naruszeniu porządku i bezpieczeństwa publicznego",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "91417bdc-269a-4db7-bb22-9b494b4f7069"
     },
     {
         "question": "W wyniku zastosowania przez policjanta pałki służbowej, osoba doznała zranienia. Fakt ten policjant dokumentuje w:",
@@ -486,7 +539,8 @@ const quizzes = [
         "c": "tylko w raporcie",
         "d": "tylko w notatniku",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "3a2e3ccc-c2e2-4eaa-9abd-30fc55532d4e"
     },
     {
         "question": "Bezwzględnie zabrania się używania kolczatki drogowej do zatrzymania",
@@ -495,7 +549,8 @@ const quizzes = [
         "c": "pojazdu jednośladowego",
         "d": "motocykla z bocznym wózkiem",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "3355dff8-0472-485a-aac5-00d171dc2e6b"
     },
     {
         "question": "Osoba skazana to:",
@@ -504,7 +559,8 @@ const quizzes = [
         "c": "osoba tymczasowo aresztowana",
         "d": "osoba ukrywająca się przed wymiarem sprawiedliwości",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "877c414d-8755-4c2b-9a1d-24cb3cc1d7e9"
     },
     {
         "question": "Decyzję o użyciu wodnych środków przymusu bezpośredniego podejmuje:",
@@ -513,7 +569,8 @@ const quizzes = [
         "c": "Komendant Główny Policji",
         "d": "dyżurny jednostki Policji",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "ad1ba00e-9dd7-450b-88ab-eb74459dd1cd"
     },
     {
         "question": "Kajdanek zespolonych lub kajdanek zakładanych na nogi można użyć wyłącznie wobec osób:",
@@ -522,7 +579,8 @@ const quizzes = [
         "c": "zatrzymanych",
         "d": "agresywnych",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "40bad8d8-5471-48c9-adba-b760cb7945d1"
     },
     {
         "question": "Zasada która mówi o użyciu lub wykorzystaniu środków przymusu bezpośredniego, od którego należy odstąpić, gdy cel ich użycia lub wykorzystania został osiągnięty to zasada:",
@@ -531,7 +589,8 @@ const quizzes = [
         "c": "niezbędności",
         "d": "minimalizacji skutków",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "3510c71e-6ac8-40e2-bb75-5a4faf1e8e87"
     },
     {
         "question": "Zastosowanie kolczatki drogowej należy poprzedzić wstrzymaniem ruchu i oznaczeniem wykorzystywanego środka na odległość nie mniejszą niż:",
@@ -540,7 +599,8 @@ const quizzes = [
         "c": "200 metrów w obu kierunkach",
         "d": "100 metrów w obu kierunkach",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "c2fc973b-cd70-47dd-ab12-319657bf01ae"
     },
     {
         "question": "Konia służbowego używa się do kontroli przemieszczania się grup osób, wykorzystując jego:",
@@ -549,7 +609,8 @@ const quizzes = [
         "c": "wielkość",
         "d": "szybkość",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "8bb4a0e0-2500-4d05-955a-d9b34f8147ab"
     },
     {
         "question": "Polecenie zastosowania kaftana bezpieczeństwa wydaje:",
@@ -558,7 +619,8 @@ const quizzes = [
         "c": "lekarz",
         "d": "dyżurny jednostki policji",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "3c8b6575-b76c-4ae7-b657-e3c56adeeb22"
     },
     {
         "question": "ŚPB z wyjątkiem siły fizycznej w postaci technik obezwładniania nie można stosować wobec:",
@@ -567,7 +629,8 @@ const quizzes = [
         "c": "dzieci, których wygląd wskazuje na wiek do 15 lat",
         "d": "osób niepełnosprawnych",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "84799fc4-8ce1-45c6-bb53-6d239e2a8f32"
     },
     {
         "question": "Policjanci mogą użyć ŚPB w postaci siły fizycznej w postaci technik:",
@@ -576,7 +639,8 @@ const quizzes = [
         "c": "transportu",
         "d": "obezwładniających",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "8898b265-047a-4c73-a6be-07d872d339c0"
     },
     {
         "question": "Przekroczenie granic obrony koniecznej może przybrać postać tzw.:",
@@ -585,7 +649,8 @@ const quizzes = [
         "c": "stresu intensywnego",
         "d": "ekscesu ekstremalnego",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "02356ba0-448e-452d-bebb-6021913dc299"
     },
     {
         "question": "Użycie i wykorzystanie środka przymusu bezpośredniego uprawniony dokumentuje w:",
@@ -594,7 +659,8 @@ const quizzes = [
         "c": "notatce służbowej",
         "d": "notatce urzędowej",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "fb88d2c8-5e41-47e3-9ca0-dc1acae9681d"
     },
     {
         "question": "Policjant przed użyciem ŚPB ma obowiązek:",
@@ -603,7 +669,8 @@ const quizzes = [
         "c": "ustalić świadków zdarzenia",
         "d": "poinformować dyżurnego Policji",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "ef8417e0-8abf-4b17-84b5-bb702dda3f5e"
     },
     {
         "question": "Użycie lub wykorzystanie ŚPB przez pododdział zwarty następuję na rozkaz:",
@@ -612,7 +679,8 @@ const quizzes = [
         "c": "Dyżurnego jednostki",
         "d": "Komendanta głównego policji, właściwego miejscowo komendanta wojewódzkiego (stołecznego) albo osoby przez nich upoważnione",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "e260b975-322c-4946-838f-e34997ad3232"
     },
     {
         "question": "Eksces intensywny polega na:",
@@ -621,7 +689,8 @@ const quizzes = [
         "c": "Niezachowaniu proporcjonalności, działanie spóźnione",
         "d": "Niezachowaniu proporcjonalności, działanie przedwczesne",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "ecc87d0f-373c-4cd7-b324-d61d045c131d"
     },
     {
         "question": "Używając przedmiotów przeznaczonych do obezwładniania osób za pomocą energii elektrycznej nie celuję się:",
@@ -630,7 +699,8 @@ const quizzes = [
         "c": "W brzuch",
         "d": "W głowę",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "8a513b5d-ca65-454a-9d02-6f379fd763ec"
     },
     {
         "question": "Czynem karalnym jest czyn zabroniony przez ustawę jako wykroczenie określone w następujących przepisach kodeksu wykroczeń:",
@@ -639,7 +709,8 @@ const quizzes = [
         "c": "Art. 58 kw- żebranie",
         "d": "Art. 65 kw- fałszywe dane osobowe",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "64e03e55-19a2-4a95-9dcd-a349998e3a25"
     },
     {
         "question": "ŚPB używa się lub wykorzystuję z zachowaniem szczególnej ostrożności uwzględniając ich właściwości które mogą stanowić zagrożenie życia lub zdrowia uprawnionego lub innej osoby, jest to zasada:",
@@ -648,7 +719,8 @@ const quizzes = [
         "c": "Ostrzeżenia",
         "d": "Ostrożności",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "b901a71a-5f45-4530-951c-3eab0f1d74af"
     },
     {
         "question": "Policjant może odstąpić od udzielania pierwszej pomocy gdy:",
@@ -657,7 +729,8 @@ const quizzes = [
         "c": "Udzielenie pomocy spowodowałoby zaniechanie czynności służbowych w tym legitymowania",
         "d": "Udzielenie pomocy może zagrozić życiu, zdrowiu lub bezpieczeństwu",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "e4bd8bb1-553b-4643-9cbc-66a912943b1c"
     },
     {
         "question": "Policjant nie może użyć kajdanek w przypadku:",
@@ -666,7 +739,8 @@ const quizzes = [
         "c": "Przeciwdziałanie bezpośredniemu zamachowi na ochraniane przez uprawnionego obiekty, obszary lub urządzenia",
         "d": "Przeciwdziałania czynnościom zmierzającym do autoagresji",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "303c9443-c434-476c-8cad-17ccf50a1ebe"
     },
     {
         "question": "Przez wykorzystanie ŚPB należy rozumieć:",
@@ -675,7 +749,8 @@ const quizzes = [
         "c": "Zastosowanie ŚPB wobec zwierzęcia, przedmiotu oraz osoby",
         "d": "Zastosowanie ŚPB wobec niebezpiecznego zwierzęcia, uśmiercenie zwierzęcia w celach humanitarnych albo zastosowanie w celu zatrzymania osoby w pościgu lub zablokowania pojazdu oraz pokonania przeszkody",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "20ec4fe6-01f0-4603-b676-d1b1926a4fc7"
     },
     {
         "question": "Funkcjonariusz policji użył prewencyjnie kajdanek w celu zapobieżenia ucieczce osoby ujętej, postępowanie było:",
@@ -684,7 +759,8 @@ const quizzes = [
         "c": "Dopuszczalne, ale tylko w sytuacji, gdy jest to sprawca zbrodni",
         "d": "Zakazane, wobec osoby ujętej",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "987a125f-2721-4a62-9fb0-93293a52a974"
     },
     {
         "question": "Funkcjonariusz pełniący służbę w wydziale ochrony placówek dyplomatycznych KSP użył ŚPB w postaci siły fizycznej wobec osoby niepodporządkowującej się wezwaniu do zachowania zgodnego z prawem. W wyniku podjętych czynności nastąpiło zniszczenie mienia w postaci zerwania złotego łańcuszka z nadgarstka osoby która nie wykonywała polecenia. Następnie funkcjonariusz poinformował o zdarzeniu swojego przełożonego oraz osobę pełniącą służbę dyżurną ale odstąpił od ustalenia świadków zdarzenia i zabezpieczenia miejsca zdarzenia. Policjant postąpił:",
@@ -693,7 +769,8 @@ const quizzes = [
         "c": "Nieprawidłowo, zawsze ustala się świadków",
         "d": "Nieprawidłowo, zawsze zabezpiecza miejsce zdarzenia",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "e5054d34-3658-4fba-bcd4-785e9e9499b5"
     },
     {
         "question": "Funkcjonariusz policji w sytuacji wystąpienia bezpośredniego zagrożenia życia używa ŚPB bez wezwania osoby do zachowania się zgodnie z prawem oraz nie uprzedził o zamiarze użycia tych środków, postąpienie policjanta było:",
@@ -702,7 +779,8 @@ const quizzes = [
         "c": "Nieprawidłowe, ŚPB można użyć bez uprzedzania tylko w sytuacji gdy zwłoka groziłaby niebezpieczeństwem dla dobra chronionego prawem",
         "d": "Zabronione prawnie",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "d1eae40f-fb50-4024-8ccf-1f49e7325f6b"
     },
     {
         "question": "Siły fizycznej używa się w postaci techniki:",
@@ -711,7 +789,8 @@ const quizzes = [
         "c": "Transportowych i parterowych",
         "d": "Boksu, judo i brazylijskiego jiu-jitsu",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "180dcb70-ceb8-4e90-8369-0b17bd5fef2e"
     },
     {
         "question": "Wodnych środków obezwładniających nie można użyć lub wykorzystać przez zastosowanie urządzeń do tego przeznaczonych w przypadkach:",
@@ -720,7 +799,8 @@ const quizzes = [
         "c": "Pokonaniu biernego oporu",
         "d": "Pokonaniu czynnego oporu",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "dc509430-9a92-48bc-86a2-de59cc7972a0"
     },
     {
         "question": "Przedmiotów przeznaczonych do obezwładniania osób za pomocą energii elektrycznej nie można użyć w przypadku:",
@@ -729,7 +809,8 @@ const quizzes = [
         "c": "Przeciwdziałania niszczeniu mienia",
         "d": "Zapewnianiu bezpieczeństwa konwoju lub doprowadzenia",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "064c2815-fe77-45ce-88c9-a8aa7d161e19"
     },
     {
         "question": "Kajdanek zespolone lub kajdanek zakładanych na nogi można użyć wobec osoby:",
@@ -738,7 +819,8 @@ const quizzes = [
         "c": "Wszystkich, decyzję podejmuje policjant",
         "d": "Wszystkich, decyzję podejmuje kierownik jednostki, a w razie jego nieobecności dyżurny jednostki",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "28d12248-5c68-49fd-84a1-7770b9f6170c"
     },
     {
         "question": "Sygnał do zatrzymania pojazdu przy użyciu kolczatki drogowej podaję umundurowany funkcjonariusz policji w:",
@@ -747,7 +829,8 @@ const quizzes = [
         "c": "Odległości nie mniejszej niż 150 m od kolczatki drogowej",
         "d": "Odległości nie mniejszej niż 300m od kolczatki drogowej",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "0ab9cf20-cca7-46e5-865c-8778fb30dd3a"
     },
     {
         "question": "Decyzje o użyciu kaftana bezpieczeństwa podejmuje:",
@@ -756,7 +839,8 @@ const quizzes = [
         "c": "Kierownik jednostki organizacyjnej albo osoby przez niego upoważnione, a w razie ich nieobecności- dyżurny jednostki",
         "d": "Kierownik jednostki organizacyjnej policji, dyżurny jednostki, a w przypadku jego nieobecności dowódca patrolu",
         "answer": "c",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "91baa85d-4f3c-45d7-a13a-b0d2cd674dff"
     },
     {
         "question": "ŚPB nie jest:",
@@ -765,7 +849,8 @@ const quizzes = [
         "c": "Pokój izolacyjny",
         "d": "Pokój przejściowy",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "97410391-5b8c-4695-8114-2769b7c70fbc"
     },
     {
         "question": "ŚPB można użyć po uprzednim bezskutecznym wezwaniu osoby do zachowania się zgodnie z prawem oraz po uprzedzeniu jej o zamiarze użycia tych środków. Można odstąpić od tych czynności w przypadku gdy:",
@@ -774,7 +859,8 @@ const quizzes = [
         "c": "Osoba jest w stanie pod wpływem alkoholu lub innego podobnie działającego środka albo z innych powodów ma zakłóconą świadomość",
         "d": "Sytuacja jest dynamiczna i wymaga tego potrzeba służby",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "bea8464b-2e7c-43dd-8330-6b2480f24c0e"
     },
     {
         "question": "Wobec nieletniego doprowadzonego do policyjnej izby dziecka nie można użyć:",
@@ -783,7 +869,8 @@ const quizzes = [
         "c": "Przedmiotów przeznaczonych do obezwładniania za pomocą energii elektrycznej",
         "d": "Pasu służbowego",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "f9f9167c-3034-4971-96b6-e02eda373ec2"
     },
     {
         "question": "Policjant założył zatrzymanemu kajdanki na nogi. Postępowanie policjanta było:",
@@ -792,7 +879,8 @@ const quizzes = [
         "c": "Zabronione",
         "d": "Dopuszczalne tylko w przypadku zatrzymania osoby poniżej lat 13",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "2019099d-4187-4d54-a712-a1a6ee1af94d"
     },
     {
         "question": "Policjant wykorzystał siatkę obezwładniającą w celu unieruchomienia zwierzęcia. Postępowanie policjant było:",
@@ -801,7 +889,8 @@ const quizzes = [
         "c": "Nieprawidłowe, w stosunku do zwierząt używamy tylko siły fizycznej",
         "d": "Niedopuszczalne",
         "answer": "b",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "e9c1b0e7-9b22-4a82-96c4-15bc869dbde6"
     },
     {
         "question": "Przedmiotów przeznaczonych do obezwładniania za pomocą energii elektrycznej można użyć wobec osoby, w stosunku do których użyto:",
@@ -810,7 +899,8 @@ const quizzes = [
         "c": "Siatki obezwładniającej",
         "d": "Siły fizycznej",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "da487b3c-14ec-409d-b70f-4b8cf73ab690"
     },
     {
         "question": "Zakazem przedmiotowym użycia ŚPB jest:",
@@ -819,7 +909,8 @@ const quizzes = [
         "c": "Użycie wobec kobiety o widocznej ciąży, osób których wiek wskazuję do lat 13, osób o widocznym kalectwie",
         "d": "Użycie siły fizycznej, nie zadając uderzeń, chyba że działa się w celu odparcia zamachu na życie lub zdrowie własne lub innych osób albo na mienie lub przeciwdziałanie ucieczce",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "52b0962a-a5ee-4eb4-8bef-68e29f0100c2"
     },
     {
         "question": "Nieletni, który nie ukończył 14 lat, może być umieszczony w izbie izolacyjnej do:",
@@ -828,7 +919,8 @@ const quizzes = [
         "c": "48 godzin",
         "d": "72 godziny",
         "answer": "a",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "067a5ca4-8592-40a0-817a-de40c00d1dd0"
     },
     {
         "question": "Siły fizycznej policjant może użyć prewencyjnie w postaci technik",
@@ -837,7 +929,8 @@ const quizzes = [
         "c": "Obezwładnienia",
         "d": "Transportowych",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
+        "id": "bd1477c4-fc20-4d37-85ab-a64c3212d41b"
     }
 ]
   },
@@ -875,13 +968,51 @@ const quizzes = [
   }
 ];
 
+const QUESTION_STATS_STORAGE_KEY = "quiz-question-stats";
+
+function loadQuestionStats() {
+  try {
+    const savedStats = JSON.parse(localStorage.getItem(QUESTION_STATS_STORAGE_KEY) || "{}");
+    return savedStats && typeof savedStats === "object" ? savedStats : {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function getQuestionId(question, questionIndex) {
+  return question.id || `${getCurrentQuiz().name}:${questionIndex}`;
+}
+
+function getQuestionStats(question, questionIndex) {
+  const questionId = getQuestionId(question, questionIndex);
+  const stats = state.questionStats[questionId];
+
+  if (!stats || typeof stats !== "object") {
+    state.questionStats[questionId] = { correct: 0, wrong: 0 };
+  }
+
+  return state.questionStats[questionId];
+}
+
+function saveQuestionStats() {
+  localStorage.setItem(QUESTION_STATS_STORAGE_KEY, JSON.stringify(state.questionStats));
+}
+
+function registerAnswer(question, questionIndex, isCorrect) {
+  const stats = getQuestionStats(question, questionIndex);
+  const resultKey = isCorrect ? "correct" : "wrong";
+  stats[resultKey] += 1;
+  saveQuestionStats();
+}
+
 const state = {
   selectedQuizIndex: 0,
   currentQuestionIndex: 0,
   correct: 0,
   wrong: 0,
   answered: false,
-  shuffledOrder: []
+  shuffledOrder: [],
+  questionStats: loadQuestionStats()
 };
 
 const questionText = document.getElementById("questionText");
@@ -893,6 +1024,8 @@ const wrongCount = document.getElementById("wrongCount");
 const progressCount = document.getElementById("progressCount");
 const percentageCount = document.getElementById("percentageCount");
 const gradeCount = document.getElementById("gradeCount");
+const questionWrongCount = document.getElementById("questionWrongCount");
+const questionCorrectCount = document.getElementById("questionCorrectCount");
 const nextQuestionBtn = document.getElementById("nextQuestionBtn");
 const speechToggle = document.getElementById("speechToggle");
 const speechRate = document.getElementById("speechRate");
@@ -940,6 +1073,19 @@ function updateCounts() {
   progressCount.textContent = `${progressValue}/${totalQuestions}`;
   percentageCount.textContent = `${percentage}%`;
   gradeCount.textContent = answeredQuestions ? getGrade(percentage) : "-";
+}
+
+function updateQuestionStats(question) {
+  if (!question) {
+    questionWrongCount.textContent = "Błędne: 0";
+    questionCorrectCount.textContent = "Poprawne: 0";
+    return;
+  }
+
+  const questionIndex = state.shuffledOrder[state.currentQuestionIndex];
+  const stats = getQuestionStats(question, questionIndex);
+  questionWrongCount.textContent = `Błędne: ${stats.wrong}`;
+  questionCorrectCount.textContent = `Poprawne: ${stats.correct}`;
 }
 
 function renderQuizList() {
@@ -1019,7 +1165,14 @@ function speakQuestion() {
 }
 
 function prepareShuffledOrder() {
-  state.shuffledOrder = shuffleArray(Array.from({ length: getCurrentQuiz().quiz.length }, (_, index) => index));
+  const currentQuiz = getCurrentQuiz();
+  state.shuffledOrder = currentQuiz.quiz
+    .map((question, index) => ({
+      index,
+      score: getQuestionStats(question, index).correct - getQuestionStats(question, index).wrong
+    }))
+    .sort((firstQuestion, secondQuestion) => firstQuestion.score - secondQuestion.score)
+    .map(({ index }) => index);
 }
 
 function renderQuestion() {
@@ -1028,6 +1181,7 @@ function renderQuestion() {
 
   if (!currentQuestion) {
     questionText.textContent = "Quiz został zakończony.";
+    updateQuestionStats(null);
     answersContainer.innerHTML = "";
     nextQuestionBtn.hidden = true;
     return;
@@ -1037,6 +1191,7 @@ function renderQuestion() {
   nextQuestionBtn.hidden = true;
   quizTitle.textContent = currentQuiz.name;
   questionText.textContent = currentQuestion.question;
+  updateQuestionStats(currentQuestion);
 
   const options = ["a", "b", "c", "d"];
   answersContainer.innerHTML = options
@@ -1075,6 +1230,7 @@ function handleAnswer(selectedLetter) {
   window.speechSynthesis?.cancel();
 
   const question = getCurrentQuestion();
+  const questionIndex = state.shuffledOrder[state.currentQuestionIndex];
   const optionButtons = Array.from(document.querySelectorAll(".answer-option"));
   state.answered = true;
 
@@ -1106,6 +1262,8 @@ function handleAnswer(selectedLetter) {
 
     if (selectedLetter === question.answer) {
       state.correct += 1;
+      registerAnswer(question, questionIndex, true);
+      updateQuestionStats(question);
       updateCounts();
 
       setTimeout(() => {
@@ -1120,6 +1278,8 @@ function handleAnswer(selectedLetter) {
     }
 
     state.wrong += 1;
+    registerAnswer(question, questionIndex, false);
+    updateQuestionStats(question);
     updateCounts();
     nextQuestionBtn.hidden = false;
   }, 500);

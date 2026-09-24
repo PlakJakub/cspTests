@@ -355,6 +355,30 @@ input {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.question-metrics {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  letter-spacing: 0.03em;
+}
+
+.question-metric {
+  font-size: 0.72rem;
+}
+
+.question-metric.wrong {
+  color: var(--wrong);
+}
+
+.question-metric.correct {
+  color: var(--correct);
 }
 
 #questionText {

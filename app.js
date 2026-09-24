@@ -11841,7 +11841,7 @@ const quizzes = [
         "answer": "d",
         "answerConfirmedBy": []
     }
-]
+]},
   {
     name: "30 Ustawy szczególne #4 ",
     quiz: [
@@ -11998,7 +11998,7 @@ const quizzes = [
         "answer": "c",
         "answerConfirmedBy": []
     }
-]
+]},
   {
     name: "31 Ustawy szczególne #5",
     quiz: [

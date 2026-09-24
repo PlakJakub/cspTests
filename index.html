@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz CSP</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="branding">
+          <div class="brand-mark">Q</div>
+          <div>
+            <p class="eyebrow">Panel szkoleniowy</p>
+            <h1>Quiz CSP</h1>
+          </div>
+        </div>
+
+        <div class="sidebar-header">
+          <span>Wybierz quiz</span>
+        </div>
+        <ul id="quizList" class="quiz-list" aria-label="Lista quizów"></ul>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div class="title-block">
+            <p class="eyebrow">Aktywne szkolenie</p>
+            <h2 id="quizTitle">Wybierz quiz</h2>
+          </div>
+
+          <div class="settings-panel">
+            <div class="switch-row">
+              <label class="switch" for="speechToggle">
+                <input type="checkbox" id="speechToggle" />
+                <span class="slider"></span>
+              </label>
+              <span class="switch-label">Czytaj pytania głosem</span>
+            </div>
+
+            <div class="speed-control">
+              <label for="speechRate">Szybkość mowy</label>
+              <input type="range" id="speechRate" min="0.6" max="1.6" step="0.1" value="1" />
+              <span id="speechRateValue">1.0x</span>
+            </div>
+
+            <div class="voice-control">
+              <label for="speechVoice">Głos</label>
+              <select id="speechVoice" aria-label="Wybierz głos polski"></select>
+            </div>
+          </div>
+        </header>
+
+        <section class="stats-bar" aria-label="Statystyki quizu">
+          <div class="stat good">
+            <span>Poprawne</span>
+            <strong id="correctCount">0</strong>
+          </div>
+          <div class="stat bad">
+            <span>Niepoprawne</span>
+            <strong id="wrongCount">0</strong>
+          </div>
+          <div class="stat total">
+            <span>Postęp</span>
+            <strong id="progressCount">0/0</strong>
+          </div>
+        </section>
+
+        <section id="questionCard" class="question-card" aria-live="polite">
+          <p class="question-label">Pytanie</p>
+          <h3 id="questionText">Wybierz quiz z listy po lewej stronie.</h3>
+          <div id="answers" class="answers"></div>
+
+          <div class="card-actions">
+            <button id="nextQuestionBtn" class="primary-btn" type="button" hidden>
+              Następne pytanie
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

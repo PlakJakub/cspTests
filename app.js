@@ -1012,6 +1012,7 @@ const state = {
   wrong: 0,
   answered: false,
   shuffledOrder: [],
+  currentQuestionOptions: [],
   questionStats: loadQuestionStats()
 };
 
@@ -1139,12 +1140,18 @@ function speakQuestion() {
   const question = getCurrentQuestion();
   if (!question) return;
 
+  const visibleOptions = state.currentQuestionOptions.length
+    ? state.currentQuestionOptions
+    : [
+        { visibleLetter: "A", realLetter: "a", text: question.a },
+        { visibleLetter: "B", realLetter: "b", text: question.b },
+        { visibleLetter: "C", realLetter: "c", text: question.c },
+        { visibleLetter: "D", realLetter: "d", text: question.d }
+      ];
+
   const text = [
     question.question,
-    `A: ${question.a}`,
-    `B: ${question.b}`,
-    `C: ${question.c}`,
-    `D: ${question.d}`
+    ...visibleOptions.map(({ visibleLetter, text }) => `${visibleLetter}: ${text}`)
   ].join(". ");
 
   const utterance = new SpeechSynthesisUtterance(text);
@@ -1193,21 +1200,24 @@ function renderQuestion() {
   questionText.textContent = currentQuestion.question;
   updateQuestionStats(currentQuestion);
 
-  const options = shuffleArray(["a", "b", "c", "d"]);
-  answersContainer.innerHTML = options
-    .map((letter) => {
-      const text = currentQuestion[letter];
-      return `
-        <button class="answer-option" type="button" data-letter="${letter}" aria-label="Odpowiedź ${letter.toUpperCase()}">
-          <span class="option-letter">${letter.toUpperCase()}</span>
-          <span class="option-text">${text}</span>
-        </button>
-      `;
-    })
+  const shuffledOptions = shuffleArray(["a", "b", "c", "d"]);
+  state.currentQuestionOptions = shuffledOptions.map((realLetter, index) => ({
+    visibleLetter: String.fromCharCode(65 + index),
+    realLetter,
+    text: currentQuestion[realLetter]
+  }));
+
+  answersContainer.innerHTML = state.currentQuestionOptions
+    .map(({ visibleLetter, realLetter, text }) => `
+      <button class="answer-option" type="button" data-real-letter="${realLetter}" data-visible-letter="${visibleLetter}" aria-label="Odpowiedź ${visibleLetter}">
+        <span class="option-letter">${visibleLetter}</span>
+        <span class="option-text">${text}</span>
+      </button>
+    `)
     .join("");
 
   answersContainer.querySelectorAll(".answer-option").forEach((button) => {
-    button.addEventListener("click", () => handleAnswer(button.dataset.letter));
+    button.addEventListener("click", () => handleAnswer(button));
   });
 
   updateCounts();
@@ -1224,7 +1234,7 @@ function selectQuiz(index) {
   renderQuestion();
 }
 
-function handleAnswer(selectedLetter) {
+function handleAnswer(selectedButton) {
   if (state.answered) return;
 
   window.speechSynthesis?.cancel();
@@ -1232,35 +1242,36 @@ function handleAnswer(selectedLetter) {
   const question = getCurrentQuestion();
   const questionIndex = state.shuffledOrder[state.currentQuestionIndex];
   const optionButtons = Array.from(document.querySelectorAll(".answer-option"));
+  const selectedRealLetter = selectedButton.dataset.realLetter;
   state.answered = true;
 
   optionButtons.forEach((button) => {
-    const letter = button.dataset.letter;
+    const realLetter = button.dataset.realLetter;
     button.disabled = true;
     button.classList.remove("selected");
     button.classList.remove("correct");
     button.classList.remove("wrong");
 
-    if (letter === selectedLetter) {
+    if (realLetter === selectedRealLetter) {
       button.classList.add("selected");
     }
   });
 
   setTimeout(() => {
     optionButtons.forEach((button) => {
-      const letter = button.dataset.letter;
+      const realLetter = button.dataset.realLetter;
       button.classList.remove("selected");
 
-      if (letter === question.answer) {
+      if (realLetter === question.answer) {
         button.classList.add("correct");
       }
 
-      if (letter === selectedLetter && letter !== question.answer) {
+      if (realLetter === selectedRealLetter && realLetter !== question.answer) {
         button.classList.add("wrong");
       }
     });
 
-    if (selectedLetter === question.answer) {
+    if (selectedRealLetter === question.answer) {
       state.correct += 1;
       registerAnswer(question, questionIndex, true);
       updateQuestionStats(question);

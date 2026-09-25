@@ -1193,7 +1193,7 @@ function renderQuestion() {
   questionText.textContent = currentQuestion.question;
   updateQuestionStats(currentQuestion);
 
-  const options = ["a", "b", "c", "d"];
+  const options = shuffleArray(["a", "b", "c", "d"]);
   answersContainer.innerHTML = options
     .map((letter) => {
       const text = currentQuestion[letter];

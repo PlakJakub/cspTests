@@ -2206,7 +2206,7 @@ const quizzes = [
         "c": "Wyegzekwowania zachowania zgodnego z wydanym poleceniem.",
         "d": "Przeciwdziałania czynnościom zmierzającym bezpośrednio do zamachu na wolność policjanta.",
         "answer": "d",
-        "answerConfirmedBy": []
+        "answerConfirmedBy": [],
     },
     {
         "question": "Kask zabezpieczający można użyć w przypadku:",
@@ -22600,13 +22600,51 @@ const quizzes = [
   
 ];
 
+const QUESTION_STATS_STORAGE_KEY = "quiz-question-stats";
+
+function loadQuestionStats() {
+  try {
+    const savedStats = JSON.parse(localStorage.getItem(QUESTION_STATS_STORAGE_KEY) || "{}");
+    return savedStats && typeof savedStats === "object" ? savedStats : {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function getQuestionId(question, questionIndex) {
+  return question.id || `${getCurrentQuiz().name}:${questionIndex}`;
+}
+
+function getQuestionStats(question, questionIndex) {
+  const questionId = getQuestionId(question, questionIndex);
+  const stats = state.questionStats[questionId];
+
+  if (!stats || typeof stats !== "object") {
+    state.questionStats[questionId] = { correct: 0, wrong: 0 };
+  }
+
+  return state.questionStats[questionId];
+}
+
+function saveQuestionStats() {
+  localStorage.setItem(QUESTION_STATS_STORAGE_KEY, JSON.stringify(state.questionStats));
+}
+
+function registerAnswer(question, questionIndex, isCorrect) {
+  const stats = getQuestionStats(question, questionIndex);
+  const resultKey = isCorrect ? "correct" : "wrong";
+  stats[resultKey] += 1;
+  saveQuestionStats();
+}
+
 const state = {
   selectedQuizIndex: 0,
   currentQuestionIndex: 0,
   correct: 0,
   wrong: 0,
   answered: false,
-  shuffledOrder: []
+  shuffledOrder: [],
+  questionStats: loadQuestionStats()
 };
 
 const questionText = document.getElementById("questionText");
@@ -22616,6 +22654,10 @@ const quizTitle = document.getElementById("quizTitle");
 const correctCount = document.getElementById("correctCount");
 const wrongCount = document.getElementById("wrongCount");
 const progressCount = document.getElementById("progressCount");
+const percentageCount = document.getElementById("percentageCount");
+const gradeCount = document.getElementById("gradeCount");
+const questionWrongCount = document.getElementById("questionWrongCount");
+const questionCorrectCount = document.getElementById("questionCorrectCount");
 const nextQuestionBtn = document.getElementById("nextQuestionBtn");
 const speechToggle = document.getElementById("speechToggle");
 const speechRate = document.getElementById("speechRate");
@@ -22643,13 +22685,39 @@ function getCurrentQuestion() {
   return getCurrentQuiz().quiz[questionIndex];
 }
 
+function getGrade(percentage) {
+  if (percentage === 100) return 6;
+  if (percentage > 90) return 5;
+  if (percentage > 80) return 4;
+  if (percentage > 75) return 3;
+  if (percentage >= 70) return 2;
+  return 1;
+}
+
 function updateCounts() {
   correctCount.textContent = state.correct;
   wrongCount.textContent = state.wrong;
   const currentQuiz = getCurrentQuiz();
   const totalQuestions = currentQuiz.quiz.length;
+  const answeredQuestions = state.correct + state.wrong;
+  const percentage = answeredQuestions ? Math.round((state.correct / answeredQuestions) * 100) : 0;
   const progressValue = Math.min(state.currentQuestionIndex + 1, totalQuestions);
   progressCount.textContent = `${progressValue}/${totalQuestions}`;
+  percentageCount.textContent = `${percentage}%`;
+  gradeCount.textContent = answeredQuestions ? getGrade(percentage) : "-";
+}
+
+function updateQuestionStats(question) {
+  if (!question) {
+    questionWrongCount.textContent = "Błędne: 0";
+    questionCorrectCount.textContent = "Poprawne: 0";
+    return;
+  }
+
+  const questionIndex = state.shuffledOrder[state.currentQuestionIndex];
+  const stats = getQuestionStats(question, questionIndex);
+  questionWrongCount.textContent = `Błędne: ${stats.wrong}`;
+  questionCorrectCount.textContent = `Poprawne: ${stats.correct}`;
 }
 
 function renderQuizList() {
@@ -22729,7 +22797,14 @@ function speakQuestion() {
 }
 
 function prepareShuffledOrder() {
-  state.shuffledOrder = shuffleArray(Array.from({ length: getCurrentQuiz().quiz.length }, (_, index) => index));
+  const currentQuiz = getCurrentQuiz();
+  state.shuffledOrder = currentQuiz.quiz
+    .map((question, index) => ({
+      index,
+      score: getQuestionStats(question, index).correct - getQuestionStats(question, index).wrong
+    }))
+    .sort((firstQuestion, secondQuestion) => firstQuestion.score - secondQuestion.score)
+    .map(({ index }) => index);
 }
 
 function renderQuestion() {
@@ -22738,6 +22813,7 @@ function renderQuestion() {
 
   if (!currentQuestion) {
     questionText.textContent = "Quiz został zakończony.";
+    updateQuestionStats(null);
     answersContainer.innerHTML = "";
     nextQuestionBtn.hidden = true;
     return;
@@ -22747,6 +22823,7 @@ function renderQuestion() {
   nextQuestionBtn.hidden = true;
   quizTitle.textContent = currentQuiz.name;
   questionText.textContent = currentQuestion.question;
+  updateQuestionStats(currentQuestion);
 
   const options = ["a", "b", "c", "d"];
   answersContainer.innerHTML = options
@@ -22785,6 +22862,7 @@ function handleAnswer(selectedLetter) {
   window.speechSynthesis?.cancel();
 
   const question = getCurrentQuestion();
+  const questionIndex = state.shuffledOrder[state.currentQuestionIndex];
   const optionButtons = Array.from(document.querySelectorAll(".answer-option"));
   state.answered = true;
 
@@ -22816,6 +22894,8 @@ function handleAnswer(selectedLetter) {
 
     if (selectedLetter === question.answer) {
       state.correct += 1;
+      registerAnswer(question, questionIndex, true);
+      updateQuestionStats(question);
       updateCounts();
 
       setTimeout(() => {
@@ -22830,6 +22910,8 @@ function handleAnswer(selectedLetter) {
     }
 
     state.wrong += 1;
+    registerAnswer(question, questionIndex, false);
+    updateQuestionStats(question);
     updateCounts();
     nextQuestionBtn.hidden = false;
   }, 500);
@@ -22845,7 +22927,8 @@ function nextQuestion() {
   }
 
   const total = state.correct + state.wrong;
-  questionText.textContent = `Quiz zakończony. Wynik: ${state.correct}/${total} poprawnych odpowiedzi.`;
+  const percentage = total ? Math.round((state.correct / total) * 100) : 0;
+  questionText.textContent = `Quiz zakończony. Wynik: ${state.correct}/${total} poprawnych odpowiedzi (${percentage}%). Ocena: ${getGrade(percentage)}.`;
   answersContainer.innerHTML = "";
   nextQuestionBtn.hidden = true;
 }

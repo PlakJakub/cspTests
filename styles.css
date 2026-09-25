@@ -256,12 +256,13 @@ input {
 
 .stats-bar {
   display: grid;
-  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 18px;
   margin: 28px 0;
 }
 
 .stat {
+  min-width: 0;
   padding: 18px 20px;
   border-radius: 18px;
   border: 1px solid var(--border);
@@ -273,8 +274,10 @@ input {
 }
 
 .stat span {
+  min-width: 0;
   color: var(--muted);
   font-size: 0.9rem;
+  overflow-wrap: anywhere;
 }
 
 .stat strong {
@@ -306,6 +309,36 @@ input {
   color: var(--accent);
 }
 
+.stat.performance {
+  border-color: rgba(255, 199, 77, 0.45);
+  align-items: center;
+}
+
+.performance > span,
+.performance-values {
+  white-space: nowrap;
+}
+
+.performance-values {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.performance-values strong:first-child {
+  color: #ffc74d;
+}
+
+.grade-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.performance-values strong:last-child {
+  color: #b78eff;
+}
+
 .question-card {
   background: linear-gradient(180deg, rgba(15, 31, 54, 0.9), rgba(11, 20, 34, 0.9));
   border: 1px solid var(--border);
@@ -322,6 +355,30 @@ input {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.question-metrics {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  letter-spacing: 0.03em;
+}
+
+.question-metric {
+  font-size: 0.72rem;
+}
+
+.question-metric.wrong {
+  color: var(--wrong);
+}
+
+.question-metric.correct {
+  color: var(--correct);
 }
 
 #questionText {

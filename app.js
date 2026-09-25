@@ -969,6 +969,16 @@ const quizzes = [
 ];
 
 const QUESTION_STATS_STORAGE_KEY = "quiz-question-stats";
+const STARRED_QUESTIONS_STORAGE_KEY = "quiz-starred-questions";
+
+function loadStarredQuestionIds() {
+    try {
+        const savedIds = JSON.parse(localStorage.getItem(STARRED_QUESTIONS_STORAGE_KEY) || "[]");
+        return Array.isArray(savedIds) ? savedIds : [];
+    } catch (error) {
+        return [];
+    }
+}
 
 function loadQuestionStats() {
   try {
@@ -998,6 +1008,10 @@ function saveQuestionStats() {
   localStorage.setItem(QUESTION_STATS_STORAGE_KEY, JSON.stringify(state.questionStats));
 }
 
+function saveStarredQuestionIds() {
+    localStorage.setItem(STARRED_QUESTIONS_STORAGE_KEY, JSON.stringify(state.starredQuestionIds));
+}
+
 function registerAnswer(question, questionIndex, isCorrect) {
   const stats = getQuestionStats(question, questionIndex);
   const resultKey = isCorrect ? "correct" : "wrong";
@@ -1013,7 +1027,8 @@ const state = {
   answered: false,
   shuffledOrder: [],
   currentQuestionOptions: [],
-  questionStats: loadQuestionStats()
+    questionStats: loadQuestionStats(),
+    starredQuestionIds: loadStarredQuestionIds()
 };
 
 const questionText = document.getElementById("questionText");
@@ -1032,6 +1047,8 @@ const speechToggle = document.getElementById("speechToggle");
 const speechRate = document.getElementById("speechRate");
 const speechRateValue = document.getElementById("speechRateValue");
 const speechVoice = document.getElementById("speechVoice");
+const starredOnlyToggle = document.getElementById("starredOnlyToggle");
+const questionStarToggle = document.getElementById("questionStarToggle");
 
 function shuffleArray(items) {
   const array = [...items];
@@ -1063,291 +1080,336 @@ function getGrade(percentage) {
   return 1;
 }
 
+
 function updateCounts() {
-  correctCount.textContent = state.correct;
-  wrongCount.textContent = state.wrong;
-  const currentQuiz = getCurrentQuiz();
-  const totalQuestions = currentQuiz.quiz.length;
-  const answeredQuestions = state.correct + state.wrong;
-  const percentage = answeredQuestions ? Math.round((state.correct / answeredQuestions) * 100) : 0;
-  const progressValue = Math.min(state.currentQuestionIndex + 1, totalQuestions);
-  progressCount.textContent = `${progressValue}/${totalQuestions}`;
-  percentageCount.textContent = `${percentage}%`;
-  gradeCount.textContent = answeredQuestions ? getGrade(percentage) : "-";
+    correctCount.textContent = state.correct;
+    wrongCount.textContent = state.wrong;
+    const currentQuiz = getCurrentQuiz();
+    const totalQuestions = state.shuffledOrder.length;
+    const answeredQuestions = state.correct + state.wrong;
+    const percentage = answeredQuestions ? Math.round((state.correct / answeredQuestions) * 100) : 0;
+    const progressValue = Math.min(state.currentQuestionIndex + 1, totalQuestions);
+    progressCount.textContent = `${progressValue}/${totalQuestions}`;
+    percentageCount.textContent = `${percentage}%`;
+    gradeCount.textContent = answeredQuestions ? getGrade(percentage) : "-";
 }
 
 function updateQuestionStats(question) {
-  if (!question) {
-    questionWrongCount.textContent = "Błędne: 0";
-    questionCorrectCount.textContent = "Poprawne: 0";
-    return;
-  }
+    if (!question) {
+        questionWrongCount.textContent = "Błędne: 0";
+        questionCorrectCount.textContent = "Poprawne: 0";
+        return;
+    }
 
-  const questionIndex = state.shuffledOrder[state.currentQuestionIndex];
-  const stats = getQuestionStats(question, questionIndex);
-  questionWrongCount.textContent = `Błędne: ${stats.wrong}`;
-  questionCorrectCount.textContent = `Poprawne: ${stats.correct}`;
+    const questionIndex = state.shuffledOrder[state.currentQuestionIndex];
+    const stats = getQuestionStats(question, questionIndex);
+    questionWrongCount.textContent = `Błędne: ${stats.wrong}`;
+    questionCorrectCount.textContent = `Poprawne: ${stats.correct}`;
 }
 
 function renderQuizList() {
-  quizList.innerHTML = quizzes
-    .map((quiz, index) => {
-      const activeClass = index === state.selectedQuizIndex ? "active" : "";
-      return `<li><button class="quiz-item ${activeClass}" type="button" data-index="${index}">${quiz.name}</button></li>`;
-    })
-    .join("");
+    quizList.innerHTML = quizzes
+        .map((quiz, index) => {
+            const activeClass = index === state.selectedQuizIndex ? "active" : "";
+            return `<li><button class="quiz-item ${activeClass}" type="button" data-index="${index}">${quiz.name}</button></li>`;
+        })
+        .join("");
 
-  document.querySelectorAll(".quiz-item").forEach((button) => {
-    button.addEventListener("click", () => {
-      const quizIndex = Number(button.dataset.index);
-      selectQuiz(quizIndex);
+    document.querySelectorAll(".quiz-item").forEach((button) => {
+        button.addEventListener("click", () => {
+            const quizIndex = Number(button.dataset.index);
+            selectQuiz(quizIndex);
+        });
     });
-  });
 }
 
 function updateSpeechValue() {
-  speechRateValue.textContent = `${Number(speechRate.value).toFixed(1)}x`;
+    speechRateValue.textContent = `${Number(speechRate.value).toFixed(1)}x`;
 }
 
 function populateVoiceList() {
-  const voices = window.speechSynthesis?.getVoices?.() || [];
-  const polishVoices = voices.filter((voice) => voice.lang && voice.lang.toLowerCase().startsWith("pl"));
+    const voices = window.speechSynthesis?.getVoices?.() || [];
+    const polishVoices = voices.filter((voice) => voice.lang && voice.lang.toLowerCase().startsWith("pl"));
 
-  if (!polishVoices.length) {
-    speechVoice.innerHTML = '<option value="">Brak polskich głosów</option>';
-    speechVoice.disabled = true;
-    return;
-  }
+    if (!polishVoices.length) {
+        speechVoice.innerHTML = '<option value="">Brak polskich głosów</option>';
+        speechVoice.disabled = true;
+        return;
+    }
 
-  speechVoice.disabled = false;
-  const currentSelection = speechVoice.value;
+    speechVoice.disabled = false;
+    const currentSelection = speechVoice.value;
 
-  speechVoice.innerHTML = polishVoices
-    .map((voice) => `<option value="${voice.name}">${voice.name}</option>`)
-    .join("");
+    speechVoice.innerHTML = polishVoices
+        .map((voice) => `<option value="${voice.name}">${voice.name}</option>`)
+        .join("");
 
-  const selectedVoice = polishVoices.find((voice) => voice.name === currentSelection) || polishVoices[0];
-  speechVoice.value = selectedVoice.name;
+    const selectedVoice = polishVoices.find((voice) => voice.name === currentSelection) || polishVoices[0];
+    speechVoice.value = selectedVoice.name;
 }
 
 function speakQuestion() {
-  const isSpeechEnabled = speechToggle.checked;
-  if (!isSpeechEnabled || !("speechSynthesis" in window)) {
-    window.speechSynthesis?.cancel();
-    return;
-  }
+    const isSpeechEnabled = speechToggle.checked;
+    if (!isSpeechEnabled || !("speechSynthesis" in window)) {
+        window.speechSynthesis?.cancel();
+        return;
+    }
 
-  const question = getCurrentQuestion();
-  if (!question) return;
+    const question = getCurrentQuestion();
+    if (!question) return;
 
-  const visibleOptions = state.currentQuestionOptions.length
-    ? state.currentQuestionOptions
-    : [
-        { visibleLetter: "A", realLetter: "a", text: question.a },
-        { visibleLetter: "B", realLetter: "b", text: question.b },
-        { visibleLetter: "C", realLetter: "c", text: question.c },
-        { visibleLetter: "D", realLetter: "d", text: question.d }
-      ];
+    const visibleOptions = state.currentQuestionOptions.length
+        ? state.currentQuestionOptions
+        : [
+            { visibleLetter: "A", realLetter: "a", text: question.a },
+            { visibleLetter: "B", realLetter: "b", text: question.b },
+            { visibleLetter: "C", realLetter: "c", text: question.c },
+            { visibleLetter: "D", realLetter: "d", text: question.d }
+        ];
 
-  const text = [
-    question.question,
-    ...visibleOptions.map(({ visibleLetter, text }) => `${visibleLetter}: ${text}`)
-  ].join(". ");
+    const text = [
+        question.question,
+        ...visibleOptions.map(({ visibleLetter, text }) => `${visibleLetter}: ${text}`)
+    ].join(". ");
 
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "pl-PL";
-  utterance.rate = Number(speechRate.value);
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "pl-PL";
+    utterance.rate = Number(speechRate.value);
 
-  const voices = window.speechSynthesis.getVoices();
-  const polishVoices = voices.filter((voice) => voice.lang && voice.lang.toLowerCase().startsWith("pl"));
-  const selectedVoiceName = speechVoice.value;
-  const chosenVoice = polishVoices.find((voice) => voice.name === selectedVoiceName) || polishVoices[0] || voices[0];
+    const voices = window.speechSynthesis.getVoices();
+    const polishVoices = voices.filter((voice) => voice.lang && voice.lang.toLowerCase().startsWith("pl"));
+    const selectedVoiceName = speechVoice.value;
+    const chosenVoice = polishVoices.find((voice) => voice.name === selectedVoiceName) || polishVoices[0] || voices[0];
 
-  if (chosenVoice) {
-    utterance.voice = chosenVoice;
-  }
+    if (chosenVoice) {
+        utterance.voice = chosenVoice;
+    }
 
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utterance);
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
 }
 
 function prepareShuffledOrder() {
-  const currentQuiz = getCurrentQuiz();
-  state.shuffledOrder = currentQuiz.quiz
-    .map((question, index) => ({
-      index,
-      score: getQuestionStats(question, index).correct - getQuestionStats(question, index).wrong
-    }))
-    .sort((firstQuestion, secondQuestion) => firstQuestion.score - secondQuestion.score)
-    .map(({ index }) => index);
+    const currentQuiz = getCurrentQuiz();
+    state.shuffledOrder = currentQuiz.quiz
+        .map((question, index) => ({
+            index,
+            score: getQuestionStats(question, index).correct - getQuestionStats(question, index).wrong
+        }))
+        .filter(({ index }) => {
+            const question = currentQuiz.quiz[index];
+            return !starredOnlyToggle.checked || state.starredQuestionIds.includes(getQuestionId(question, index));
+        })
+        .sort((firstQuestion, secondQuestion) => firstQuestion.score - secondQuestion.score)
+        .map(({ index }) => index);
+}
+
+function updateQuestionStar(question, questionIndex) {
+    const isStarred = state.starredQuestionIds.includes(getQuestionId(question, questionIndex));
+    questionStarToggle.textContent = isStarred ? "★" : "☆";
+    questionStarToggle.classList.toggle("is-starred", isStarred);
+    questionStarToggle.setAttribute("aria-pressed", String(isStarred));
+    questionStarToggle.setAttribute("aria-label", isStarred ? "Usuń gwiazdkę z pytania" : "Oznacz pytanie gwiazdką");
 }
 
 function renderQuestion() {
-  const currentQuiz = getCurrentQuiz();
-  const currentQuestion = getCurrentQuestion();
+    const currentQuiz = getCurrentQuiz();
+    const currentQuestion = getCurrentQuestion();
 
-  if (!currentQuestion) {
-    questionText.textContent = "Quiz został zakończony.";
-    updateQuestionStats(null);
-    answersContainer.innerHTML = "";
+    if (!currentQuestion) {
+        questionText.textContent = starredOnlyToggle.checked && state.shuffledOrder.length === 0
+            ? "Brak pytań oznaczonych gwiazdką."
+            : "Quiz został zakończony.";
+        updateQuestionStats(null);
+        answersContainer.innerHTML = "";
+        nextQuestionBtn.hidden = true;
+        questionStarToggle.disabled = true;
+        updateCounts();
+        return;
+    }
+
+    state.answered = false;
     nextQuestionBtn.hidden = true;
-    return;
-  }
+    questionStarToggle.disabled = false;
+    quizTitle.textContent = currentQuiz.name;
+    questionText.textContent = currentQuestion.question;
+    updateQuestionStar(currentQuestion, state.shuffledOrder[state.currentQuestionIndex]);
+    updateQuestionStats(currentQuestion);
 
-  state.answered = false;
-  nextQuestionBtn.hidden = true;
-  quizTitle.textContent = currentQuiz.name;
-  questionText.textContent = currentQuestion.question;
-  updateQuestionStats(currentQuestion);
+    const shuffledOptions = shuffleArray(["a", "b", "c", "d"]);
+    state.currentQuestionOptions = shuffledOptions.map((realLetter, index) => ({
+        visibleLetter: String.fromCharCode(65 + index),
+        realLetter,
+        text: currentQuestion[realLetter]
+    }));
 
-  const shuffledOptions = shuffleArray(["a", "b", "c", "d"]);
-  state.currentQuestionOptions = shuffledOptions.map((realLetter, index) => ({
-    visibleLetter: String.fromCharCode(65 + index),
-    realLetter,
-    text: currentQuestion[realLetter]
-  }));
-
-  answersContainer.innerHTML = state.currentQuestionOptions
-    .map(({ visibleLetter, realLetter, text }) => `
+    answersContainer.innerHTML = state.currentQuestionOptions
+        .map(({ visibleLetter, realLetter, text }) => `
       <button class="answer-option" type="button" data-real-letter="${realLetter}" data-visible-letter="${visibleLetter}" aria-label="Odpowiedź ${visibleLetter}">
         <span class="option-letter">${visibleLetter}</span>
         <span class="option-text">${text}</span>
       </button>
     `)
-    .join("");
+        .join("");
 
-  answersContainer.querySelectorAll(".answer-option").forEach((button) => {
-    button.addEventListener("click", () => handleAnswer(button));
-  });
+    answersContainer.querySelectorAll(".answer-option").forEach((button) => {
+        button.addEventListener("click", () => handleAnswer(button));
+    });
 
-  updateCounts();
-  speakQuestion();
+    updateCounts();
+    speakQuestion();
 }
 
 function selectQuiz(index) {
-  state.selectedQuizIndex = index;
-  state.currentQuestionIndex = 0;
-  state.correct = 0;
-  state.wrong = 0;
-  prepareShuffledOrder();
-  renderQuizList();
-  renderQuestion();
+    state.selectedQuizIndex = index;
+    state.currentQuestionIndex = 0;
+    state.correct = 0;
+    state.wrong = 0;
+    prepareShuffledOrder();
+    renderQuizList();
+    renderQuestion();
 }
 
 function handleAnswer(selectedButton) {
-  if (state.answered) return;
+    if (state.answered) return;
 
-  window.speechSynthesis?.cancel();
+    window.speechSynthesis?.cancel();
 
-  const question = getCurrentQuestion();
-  const questionIndex = state.shuffledOrder[state.currentQuestionIndex];
-  const optionButtons = Array.from(document.querySelectorAll(".answer-option"));
-  const selectedRealLetter = selectedButton.dataset.realLetter;
-  state.answered = true;
+    const question = getCurrentQuestion();
+    const questionIndex = state.shuffledOrder[state.currentQuestionIndex];
+    const optionButtons = Array.from(document.querySelectorAll(".answer-option"));
+    const selectedRealLetter = selectedButton.dataset.realLetter;
+    state.answered = true;
 
-  optionButtons.forEach((button) => {
-    const realLetter = button.dataset.realLetter;
-    button.disabled = true;
-    button.classList.remove("selected");
-    button.classList.remove("correct");
-    button.classList.remove("wrong");
-
-    if (realLetter === selectedRealLetter) {
-      button.classList.add("selected");
-    }
-  });
-
-  setTimeout(() => {
     optionButtons.forEach((button) => {
-      const realLetter = button.dataset.realLetter;
-      button.classList.remove("selected");
+        const realLetter = button.dataset.realLetter;
+        button.disabled = true;
+        button.classList.remove("selected");
+        button.classList.remove("correct");
+        button.classList.remove("wrong");
 
-      if (realLetter === question.answer) {
-        button.classList.add("correct");
-      }
-
-      if (realLetter === selectedRealLetter && realLetter !== question.answer) {
-        button.classList.add("wrong");
-      }
+        if (realLetter === selectedRealLetter) {
+            button.classList.add("selected");
+        }
     });
 
-    if (selectedRealLetter === question.answer) {
-      state.correct += 1;
-      registerAnswer(question, questionIndex, true);
-      updateQuestionStats(question);
-      updateCounts();
+    setTimeout(() => {
+        optionButtons.forEach((button) => {
+            const realLetter = button.dataset.realLetter;
+            button.classList.remove("selected");
 
-      setTimeout(() => {
-        if (state.currentQuestionIndex < state.shuffledOrder.length - 1) {
-          state.currentQuestionIndex += 1;
-          renderQuestion();
-        } else {
-          nextQuestion();
+            if (realLetter === question.answer) {
+                button.classList.add("correct");
+            }
+
+            if (realLetter === selectedRealLetter && realLetter !== question.answer) {
+                button.classList.add("wrong");
+            }
+        });
+
+        if (selectedRealLetter === question.answer) {
+            state.correct += 1;
+            registerAnswer(question, questionIndex, true);
+            updateQuestionStats(question);
+            updateCounts();
+
+            setTimeout(() => {
+                if (state.currentQuestionIndex < state.shuffledOrder.length - 1) {
+                    state.currentQuestionIndex += 1;
+                    renderQuestion();
+                } else {
+                    nextQuestion();
+                }
+            }, 800);
+            return;
         }
-      }, 800);
-      return;
-    }
 
-    state.wrong += 1;
-    registerAnswer(question, questionIndex, false);
-    updateQuestionStats(question);
-    updateCounts();
-    nextQuestionBtn.hidden = false;
-  }, 500);
+        state.wrong += 1;
+        registerAnswer(question, questionIndex, false);
+        updateQuestionStats(question);
+        updateCounts();
+        nextQuestionBtn.hidden = false;
+    }, 500);
 }
 
 function nextQuestion() {
-  const currentQuiz = getCurrentQuiz();
+    const currentQuiz = getCurrentQuiz();
 
-  if (state.currentQuestionIndex < state.shuffledOrder.length - 1) {
-    state.currentQuestionIndex += 1;
-    renderQuestion();
-    return;
-  }
+    if (state.currentQuestionIndex < state.shuffledOrder.length - 1) {
+        state.currentQuestionIndex += 1;
+        renderQuestion();
+        return;
+    }
 
-  const total = state.correct + state.wrong;
-  const percentage = total ? Math.round((state.correct / total) * 100) : 0;
-  questionText.textContent = `Quiz zakończony. Wynik: ${state.correct}/${total} poprawnych odpowiedzi (${percentage}%). Ocena: ${getGrade(percentage)}.`;
-  answersContainer.innerHTML = "";
-  nextQuestionBtn.hidden = true;
+    const total = state.correct + state.wrong;
+    const percentage = total ? Math.round((state.correct / total) * 100) : 0;
+    questionText.textContent = `Quiz zakończony. Wynik: ${state.correct}/${total} poprawnych odpowiedzi (${percentage}%). Ocena: ${getGrade(percentage)}.`;
+    answersContainer.innerHTML = "";
+    nextQuestionBtn.hidden = true;
 }
 
 speechToggle.addEventListener("change", () => {
-  if (!speechToggle.checked) {
-    window.speechSynthesis?.cancel();
-    return;
-  }
-  speakQuestion();
+    if (!speechToggle.checked) {
+        window.speechSynthesis?.cancel();
+        return;
+    }
+    speakQuestion();
 });
 
 speechRate.addEventListener("input", () => {
-  updateSpeechValue();
-  if (speechToggle.checked) {
-    speakQuestion();
-  }
+    updateSpeechValue();
+    if (speechToggle.checked) {
+        speakQuestion();
+    }
 });
 
 speechRate.addEventListener("change", () => {
-  updateSpeechValue();
-  if (speechToggle.checked) {
-    speakQuestion();
-  }
+    updateSpeechValue();
+    if (speechToggle.checked) {
+        speakQuestion();
+    }
 });
 
 speechVoice.addEventListener("change", () => {
-  if (speechToggle.checked) {
-    speakQuestion();
-  }
+    if (speechToggle.checked) {
+        speakQuestion();
+    }
 });
 
 window.speechSynthesis?.addEventListener("voiceschanged", () => {
-  populateVoiceList();
-  if (speechToggle.checked) {
-    speakQuestion();
-  }
+    populateVoiceList();
+    if (speechToggle.checked) {
+        speakQuestion();
+    }
 });
 
 nextQuestionBtn.addEventListener("click", nextQuestion);
+
+questionStarToggle.addEventListener("click", () => {
+    const question = getCurrentQuestion();
+    if (!question) return;
+
+    const questionIndex = state.shuffledOrder[state.currentQuestionIndex];
+    const questionId = getQuestionId(question, questionIndex);
+    const starredIndex = state.starredQuestionIds.indexOf(questionId);
+
+    if (starredIndex === -1) {
+        state.starredQuestionIds.push(questionId);
+    } else {
+        state.starredQuestionIds.splice(starredIndex, 1);
+    }
+
+    saveStarredQuestionIds();
+    updateQuestionStar(question, questionIndex);
+});
+
+starredOnlyToggle.addEventListener("change", () => {
+    state.currentQuestionIndex = 0;
+    state.correct = 0;
+    state.wrong = 0;
+    prepareShuffledOrder();
+    renderQuestion();
+});
 
 updateSpeechValue();
 populateVoiceList();

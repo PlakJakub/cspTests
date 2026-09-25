@@ -31,6 +31,11 @@
           </div>
 
           <div class="settings-panel">
+            <label class="star-filter" for="starredOnlyToggle">
+              <input type="checkbox" id="starredOnlyToggle" />
+              <span>Tylko z gwiazdką</span>
+            </label>
+
             <div class="switch-row">
               <label class="switch" for="speechToggle">
                 <input type="checkbox" id="speechToggle" />
@@ -77,7 +82,10 @@
 
         <section id="questionCard" class="question-card" aria-live="polite">
           <p class="question-label">
-            <span>Pytanie</span>
+            <span class="question-heading">
+              Pytanie
+              <button id="questionStarToggle" class="question-star" type="button" aria-label="Oznacz pytanie gwiazdką" aria-pressed="false">☆</button>
+            </span>
             <span class="question-metrics" aria-label="Statystyki pytania">
               <span class="question-metric wrong" id="questionWrongCount">Błędne: 0</span>
               <span class="question-metric correct" id="questionCorrectCount">Poprawne: 0</span>

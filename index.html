@@ -31,11 +31,6 @@
           </div>
 
           <div class="settings-panel">
-            <label class="star-filter" for="starredOnlyToggle">
-              <input type="checkbox" id="starredOnlyToggle" />
-              <span>Tylko z gwiazdką</span>
-            </label>
-
             <div class="switch-row">
               <label class="switch" for="speechToggle">
                 <input type="checkbox" id="speechToggle" />
@@ -53,6 +48,16 @@
             <div class="voice-control">
               <label for="speechVoice">Głos</label>
               <select id="speechVoice" aria-label="Wybierz głos polski"></select>
+            </div>
+          </div>
+
+          <div class="settings-panel star-filter-panel">
+            <div class="switch-row">
+              <label class="switch" for="starredOnlyToggle">
+                <input type="checkbox" id="starredOnlyToggle" />
+                <span class="slider"></span>
+              </label>
+              <label class="switch-label" for="starredOnlyToggle">Tylko z gwiazdką</label>
             </div>
           </div>
         </header>

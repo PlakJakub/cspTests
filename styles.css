@@ -173,19 +173,8 @@ input {
   gap: 12px;
 }
 
-.star-filter {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text);
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.star-filter input {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--accent-strong);
+.star-filter-panel {
+  flex: 0 0 auto;
 }
 
 .switch {

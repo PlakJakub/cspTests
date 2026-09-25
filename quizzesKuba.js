@@ -1,4 +1,4 @@
-windows.quizzesKuba = [
+window.quizzesKuba = [
     {
         "name": "Prawo część ogólna",
         "quiz": [

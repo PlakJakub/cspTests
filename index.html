@@ -7,7 +7,20 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="app-shell">
+    <div id="unlockOverlay" class="unlock-overlay">
+      <section class="unlock-panel" role="dialog" aria-modal="true" aria-labelledby="unlockTitle">
+        <p class="eyebrow">Dostęp chroniony</p>
+        <h2 id="unlockTitle">Odblokuj quizy</h2>
+        <form id="unlockForm">
+          <label for="quizPassword">Hasło</label>
+          <input id="quizPassword" name="password" type="password" autocomplete="current-password" required autofocus />
+          <p id="unlockMessage" class="unlock-message" aria-live="polite"></p>
+          <button id="unlockButton" class="primary-btn" type="submit">Odblokuj</button>
+        </form>
+      </section>
+    </div>
+
+    <div id="appShell" class="app-shell" inert>
       <aside class="sidebar">
         <div class="branding">
           <div class="brand-mark">Q</div>
@@ -110,6 +123,62 @@
 
     <script src="lodash.min.js"></script>
     <script src="quizzes.js"></script>
-    <script src="app.js"></script>
+    <script>
+      async function decrypt(data, haslo) {
+        const key = await crypto.subtle.importKey(
+          "raw",
+          new TextEncoder().encode(haslo.padEnd(32, "0").slice(0, 32)),
+          "AES-GCM",
+          false,
+          ["decrypt"]
+        );
+
+        const iv = new TextEncoder().encode(haslo.padEnd(12, "0").slice(0, 12));
+
+        return JSON.parse(
+          new TextDecoder().decode(
+            await crypto.subtle.decrypt(
+              { name: "AES-GCM", iv },
+              key,
+              Uint8Array.from(atob(data), (character) => character.charCodeAt(0))
+            )
+          )
+        );
+      }
+
+      const encryptedQuizzes = window.quizzes;
+      const unlockForm = document.getElementById("unlockForm");
+      const passwordInput = document.getElementById("quizPassword");
+      const unlockButton = document.getElementById("unlockButton");
+      const unlockMessage = document.getElementById("unlockMessage");
+      const unlockOverlay = document.getElementById("unlockOverlay");
+      const appShell = document.getElementById("appShell");
+
+      unlockForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        unlockButton.disabled = true;
+        unlockMessage.textContent = "Sprawdzanie hasła...";
+
+        try {
+          window.quizzes = await decrypt(encryptedQuizzes, passwordInput.value);
+          const appScript = document.createElement("script");
+          appScript.src = "app.js";
+          appScript.onload = () => {
+            unlockOverlay.hidden = true;
+            appShell.inert = false;
+          };
+          appScript.onerror = () => {
+            unlockMessage.textContent = "Nie udało się uruchomić aplikacji quizowej.";
+            unlockButton.disabled = false;
+          };
+          document.body.appendChild(appScript);
+        } catch (error) {
+          unlockMessage.textContent = "Nie udało się odblokować quizów. Sprawdź hasło.";
+          passwordInput.value = "";
+          passwordInput.focus();
+          unlockButton.disabled = false;
+        }
+      });
+    </script>
   </body>
 </html>

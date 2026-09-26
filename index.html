@@ -54,7 +54,7 @@
 
             <div class="speed-control">
               <label for="speechRate">Szybkość mowy</label>
-              <input type="range" id="speechRate" min="0.6" max="8" step="0.1" value="1" />
+              <input type="range" id="speechRate" min="0.6" max="7" step="0.1" value="1" />
               <span id="speechRateValue">1.0x</span>
             </div>
 
@@ -123,30 +123,60 @@
 
     <script src="lodash.min.js"></script>
     <script src="quizzes.js"></script>
+    <script src="quizzesKuba.js"></script>
     <script>
-      async function decrypt(data, haslo) {
-        const key = await crypto.subtle.importKey(
-          "raw",
-          new TextEncoder().encode(haslo.padEnd(32, "0").slice(0, 32)),
-          "AES-GCM",
-          false,
-          ["decrypt"]
+
+function toBase64(buffer) {
+    const bytes = new Uint8Array(buffer);
+    let result = "";
+
+    for (let i = 0; i < bytes.length; i += 8192) {
+        result += String.fromCharCode(
+            ...bytes.subarray(i, i + 8192)
         );
+    }
 
-        const iv = new TextEncoder().encode(haslo.padEnd(12, "0").slice(0, 12));
+    return btoa(result);
+}
 
-        return JSON.parse(
-          new TextDecoder().decode(
+function fromBase64(base64) {
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+
+    for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+    }
+
+    return bytes;
+}
+
+
+async function decrypt(data,haslo) {
+    const key = await crypto.subtle.importKey(
+        "raw",
+        new TextEncoder().encode(haslo.padEnd(32, "0").slice(0, 32)),
+        "AES-GCM",
+        false,
+        ["decrypt"]
+    );
+
+    const iv = new TextEncoder().encode(
+        haslo.padEnd(12, "0").slice(0, 12)
+    );
+
+    return JSON.parse(
+        new TextDecoder().decode(
             await crypto.subtle.decrypt(
-              { name: "AES-GCM", iv },
-              key,
-              Uint8Array.from(atob(data), (character) => character.charCodeAt(0))
+                { name: "AES-GCM", iv },
+                key,
+                fromBase64(data)
             )
-          )
-        );
-      }
+        )
+    );
+}
 
       const encryptedQuizzes = window.quizzes;
+      const encryptedQuizzesKuba = window.quizzesKuba;
       const unlockForm = document.getElementById("unlockForm");
       const passwordInput = document.getElementById("quizPassword");
       const unlockButton = document.getElementById("unlockButton");
@@ -160,7 +190,17 @@
         unlockMessage.textContent = "Sprawdzanie hasła...";
 
         try {
-          window.quizzes = await decrypt(encryptedQuizzes, passwordInput.value);
+           try {
+          window.quizzes = await decrypt(encryptedQuizzes, passwordInput.value) || [];
+                  } catch (error) {
+                    window.quizzes = [];
+        }
+                   try {
+          window.quizzesKuba = await decrypt(encryptedQuizzesKuba, passwordInput.value) || [];
+                  } catch (error) {
+                    window.quizzesKuba = [];
+        }
+
           const appScript = document.createElement("script");
           appScript.src = "app.js";
           appScript.onload = () => {
@@ -180,5 +220,6 @@
         }
       });
     </script>
+
   </body>
 </html>

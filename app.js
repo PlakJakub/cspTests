@@ -1,4 +1,4 @@
-const quizzes = window.quizzes;
+const quizzes = [...window.quizzesKuba, ...window.quizzes];
 
 const QUESTION_STATS_STORAGE_KEY = "quiz-question-stats";
 const STARRED_QUESTIONS_STORAGE_KEY = "quiz-starred-questions";

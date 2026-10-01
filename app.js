@@ -420,6 +420,27 @@ window.speechSynthesis?.addEventListener("voiceschanged", () => {
 
 nextQuestionBtn.addEventListener("click", nextQuestion);
 
+document.addEventListener("keydown", (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey || !["1", "2", "3", "4"].includes(event.key)) {
+        return;
+    }
+
+    const target = event.target;
+    if (target instanceof HTMLElement && (
+        target.isContentEditable || ["INPUT", "SELECT", "TEXTAREA"].includes(target.tagName)
+    )) {
+        return;
+    }
+
+    if (state.answered || !getCurrentQuestion()) return;
+
+    const visibleLetter = String.fromCharCode(64 + Number(event.key));
+    const selectedButton = answersContainer.querySelector(
+        `.answer-option[data-visible-letter="${visibleLetter}"]`
+    );
+    if (selectedButton) handleAnswer(selectedButton);
+});
+
 questionStarToggle.addEventListener("click", () => {
     const question = getCurrentQuestion();
     if (!question) return;

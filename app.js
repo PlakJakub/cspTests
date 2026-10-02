@@ -438,11 +438,20 @@ document.addEventListener("keydown", (event) => {
         return;
     }
 
-    if (!["1", "2", "3", "4"].includes(event.key)) return;
+    const visibleLetter = {
+        "1": "A",
+        "8": "A",
+        "2": "B",
+        "9": "B",
+        "3": "C",
+        "5": "C",
+        "4": "D",
+        "6": "D"
+    }[event.key];
+    if (!visibleLetter) return;
 
     if (state.answered || !getCurrentQuestion()) return;
 
-    const visibleLetter = String.fromCharCode(64 + Number(event.key));
     const selectedButton = answersContainer.querySelector(
         `.answer-option[data-visible-letter="${visibleLetter}"]`
     );

@@ -224,7 +224,7 @@ function speakQuestion() {
 
 function prepareShuffledOrder() {
     const currentQuiz = getCurrentQuiz();
-    state.shuffledOrder = currentQuiz.quiz
+    state.shuffledOrder = shuffleArray(currentQuiz.quiz
         .map((question, index) => ({
             index,
             score: getQuestionStats(question, index).correct - getQuestionStats(question, index).wrong
@@ -232,7 +232,7 @@ function prepareShuffledOrder() {
         .filter(({ index }) => {
             const question = currentQuiz.quiz[index];
             return !starredOnlyToggle.checked || state.starredQuestionIds.includes(getQuestionId(question, index));
-        })
+        }))
         .sort((firstQuestion, secondQuestion) => firstQuestion.score - secondQuestion.score)
         .map(({ index }) => index);
 }

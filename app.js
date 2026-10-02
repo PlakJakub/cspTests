@@ -421,7 +421,7 @@ window.speechSynthesis?.addEventListener("voiceschanged", () => {
 nextQuestionBtn.addEventListener("click", nextQuestion);
 
 document.addEventListener("keydown", (event) => {
-    if (event.altKey || event.ctrlKey || event.metaKey || !["1", "2", "3", "4"].includes(event.key)) {
+    if (event.altKey || event.ctrlKey || event.metaKey) {
         return;
     }
 
@@ -431,6 +431,14 @@ document.addEventListener("keydown", (event) => {
     )) {
         return;
     }
+
+    if (event.key === " " && !nextQuestionBtn.hidden) {
+        event.preventDefault();
+        nextQuestion();
+        return;
+    }
+
+    if (!["1", "2", "3", "4"].includes(event.key)) return;
 
     if (state.answered || !getCurrentQuestion()) return;
 

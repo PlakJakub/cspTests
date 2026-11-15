@@ -287,6 +287,7 @@ input {
 
 .speed-control {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
   color: var(--muted);
@@ -319,11 +320,52 @@ input {
   font-weight: 700;
 }
 
+.play-btn {
+  padding: 8px 12px;
+  border: 1px solid rgba(100, 210, 255, 0.35);
+  border-radius: 10px;
+  background: rgba(100, 210, 255, 0.12);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.play-btn:hover,
+.play-btn:focus-visible {
+  border-color: var(--accent);
+  outline: 2px solid rgba(100, 210, 255, 0.25);
+  outline-offset: 2px;
+}
+
+.play-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .stats-bar {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 18px;
   margin: 28px 0;
+}
+
+.question-navigation {
+  display: grid;
+  gap: 8px;
+  margin: -12px 0 22px;
+  color: var(--muted);
+}
+
+.question-navigation label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.question-navigation input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent-strong);
 }
 
 .stat {

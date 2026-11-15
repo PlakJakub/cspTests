@@ -72,16 +72,25 @@ const wrongCount = document.getElementById("wrongCount");
 const progressCount = document.getElementById("progressCount");
 const percentageCount = document.getElementById("percentageCount");
 const gradeCount = document.getElementById("gradeCount");
+const questionNavigation = document.getElementById("questionNavigation");
+const questionNavigationValue = document.getElementById("questionNavigationValue");
 const questionWrongCount = document.getElementById("questionWrongCount");
 const questionCorrectCount = document.getElementById("questionCorrectCount");
 const nextQuestionBtn = document.getElementById("nextQuestionBtn");
 const speechToggle = document.getElementById("speechToggle");
 const speechRate = document.getElementById("speechRate");
 const speechRateValue = document.getElementById("speechRateValue");
+const autoPlayBtn = document.getElementById("autoPlayBtn");
 const speechVoice = document.getElementById("speechVoice");
 const starredOnlyToggle = document.getElementById("starredOnlyToggle");
 const questionStarToggle = document.getElementById("questionStarToggle");
 const questionEyeToggle = document.getElementById("questionEyeToggle");
+let autoPlayActive = false;
+let autoPlayPaused = false;
+let autoPlayRunId = 0;
+let autoPlayTimer = null;
+let autoPlayTimerDeadline = 0;
+let autoPlayRemaining = 0;
 
 function shuffleArray(items) {
   const array = [...items];
@@ -123,6 +132,11 @@ function updateCounts() {
     const percentage = answeredQuestions ? Math.round((state.correct / answeredQuestions) * 100) : 0;
     const progressValue = Math.min(state.currentQuestionIndex + 1, totalQuestions);
     progressCount.textContent = `${progressValue}/${totalQuestions}`;
+    questionNavigation.min = totalQuestions ? "1" : "0";
+    questionNavigation.max = String(Math.max(totalQuestions, 1));
+    questionNavigation.value = String(totalQuestions ? progressValue : 0);
+    questionNavigation.disabled = totalQuestions === 0;
+    questionNavigationValue.textContent = `${progressValue}/${totalQuestions}`;
     percentageCount.textContent = `${percentage}%`;
     gradeCount.textContent = answeredQuestions ? getGrade(percentage) : "-";
 }
@@ -160,6 +174,160 @@ function updateSpeechValue() {
     speechRateValue.textContent = `${Number(speechRate.value).toFixed(1)}x`;
 }
 
+function updateAutoPlayButton() {
+    const speechSupported = "speechSynthesis" in window;
+    autoPlayBtn.disabled = !speechSupported || (!autoPlayActive && (!getCurrentQuestion() || state.answered));
+    autoPlayBtn.textContent = autoPlayActive && !autoPlayPaused ? "⏸ Pauza" : "▶ Play";
+    autoPlayBtn.setAttribute("aria-pressed", String(autoPlayActive));
+    autoPlayBtn.setAttribute(
+        "aria-label",
+        autoPlayActive
+            ? (autoPlayPaused ? "Wznów czytanie" : "Wstrzymaj czytanie")
+            : "Uruchom czytanie pytań"
+    );
+}
+
+function stopAutoPlay() {
+    if (autoPlayTimer !== null) {
+        clearTimeout(autoPlayTimer);
+        autoPlayTimer = null;
+    }
+
+    autoPlayRunId += 1;
+    const wasActive = autoPlayActive;
+    autoPlayActive = false;
+    autoPlayPaused = false;
+    autoPlayTimerDeadline = 0;
+    autoPlayRemaining = 0;
+
+    if (wasActive) {
+        window.speechSynthesis?.cancel();
+    }
+
+    updateAutoPlayButton();
+}
+
+function scheduleAutoPlayAdvance(delay) {
+    autoPlayRemaining = delay;
+    autoPlayTimerDeadline = Date.now() + delay;
+    autoPlayTimer = setTimeout(() => {
+        autoPlayTimer = null;
+        autoPlayTimerDeadline = 0;
+        autoPlayRemaining = 0;
+
+        if (!autoPlayActive || autoPlayPaused) return;
+
+        if (state.currentQuestionIndex >= state.shuffledOrder.length - 1) {
+            stopAutoPlay();
+        } else {
+            state.currentQuestionIndex += 1;
+            renderQuestion();
+            speakAutoPlayQuestion();
+        }
+    }, delay);
+}
+
+function markAutoPlayAnswer() {
+    const question = getCurrentQuestion();
+    if (!question) {
+        stopAutoPlay();
+        return;
+    }
+
+    const correctButton = answersContainer.querySelector(
+        `.answer-option[data-real-letter="${question.answer}"]`
+    );
+    if (!correctButton) {
+        console.error("Nie znaleziono przycisku poprawnej odpowiedzi.");
+        stopAutoPlay();
+        return;
+    }
+
+    answersContainer.querySelectorAll(".answer-option").forEach((button) => {
+        button.classList.remove("selected", "wrong", "correct");
+    });
+    correctButton.classList.add("correct");
+    scheduleAutoPlayAdvance(900);
+}
+
+function createAutoPlayUtterance(text, onend, runId) {
+    const utterance = createSpeechUtterance(text);
+    utterance.onend = () => {
+        if (autoPlayActive && runId === autoPlayRunId && onend) {
+            onend();
+        }
+    };
+    utterance.onerror = (event) => {
+        if (
+            autoPlayActive
+            && runId === autoPlayRunId
+            && event.error !== "canceled"
+            && event.error !== "interrupted"
+        ) {
+            console.error("Błąd odczytu pytania:", event.error);
+            stopAutoPlay();
+        }
+    };
+
+    return utterance;
+}
+
+function speakAutoPlayQuestion() {
+    const question = getCurrentQuestion();
+    if (!question || !autoPlayActive || autoPlayPaused) return;
+
+    const runId = autoPlayRunId;
+    const questionUtterance = createAutoPlayUtterance(question.question, null, runId);
+    const answerUtterance = createAutoPlayUtterance(
+        question[question.answer],
+        markAutoPlayAnswer,
+        runId
+    );
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(questionUtterance);
+    window.speechSynthesis.speak(answerUtterance);
+}
+
+function toggleAutoPlay() {
+    if (!("speechSynthesis" in window)) {
+        console.error("Odczyt mowy nie jest obsługiwany w tej przeglądarce.");
+        return;
+    }
+
+    if (!autoPlayActive) {
+        if (!getCurrentQuestion()) return;
+
+        autoPlayActive = true;
+        autoPlayPaused = false;
+        autoPlayRunId += 1;
+        updateAutoPlayButton();
+        speakAutoPlayQuestion();
+        return;
+    }
+
+    if (!autoPlayPaused) {
+        autoPlayPaused = true;
+        window.speechSynthesis.pause();
+
+        if (autoPlayTimer !== null) {
+            autoPlayRemaining = Math.max(0, autoPlayTimerDeadline - Date.now());
+            clearTimeout(autoPlayTimer);
+            autoPlayTimer = null;
+            autoPlayTimerDeadline = 0;
+        }
+    } else {
+        autoPlayPaused = false;
+        window.speechSynthesis.resume();
+
+        if (autoPlayRemaining > 0) {
+            scheduleAutoPlayAdvance(autoPlayRemaining);
+        }
+    }
+
+    updateAutoPlayButton();
+}
+
 function populateVoiceList() {
     const voices = window.speechSynthesis?.getVoices?.() || [];
     const polishVoices = voices.filter((voice) => voice.lang && voice.lang.toLowerCase().startsWith("pl"));
@@ -179,6 +347,23 @@ function populateVoiceList() {
 
     const selectedVoice = polishVoices.find((voice) => voice.name === currentSelection) || polishVoices[0];
     speechVoice.value = selectedVoice.name;
+}
+
+function createSpeechUtterance(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "pl-PL";
+    utterance.rate = Number(speechRate.value);
+
+    const voices = window.speechSynthesis.getVoices();
+    const polishVoices = voices.filter((voice) => voice.lang && voice.lang.toLowerCase().startsWith("pl"));
+    const selectedVoiceName = speechVoice.value;
+    const chosenVoice = polishVoices.find((voice) => voice.name === selectedVoiceName) || polishVoices[0] || voices[0];
+
+    if (chosenVoice) {
+        utterance.voice = chosenVoice;
+    }
+
+    return utterance;
 }
 
 function speakQuestion() {
@@ -205,21 +390,8 @@ function speakQuestion() {
         ...visibleOptions.map(({ visibleLetter, text }) => `${visibleLetter}: ${text}`)
     ].join(". ");
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "pl-PL";
-    utterance.rate = Number(speechRate.value);
-
-    const voices = window.speechSynthesis.getVoices();
-    const polishVoices = voices.filter((voice) => voice.lang && voice.lang.toLowerCase().startsWith("pl"));
-    const selectedVoiceName = speechVoice.value;
-    const chosenVoice = polishVoices.find((voice) => voice.name === selectedVoiceName) || polishVoices[0] || voices[0];
-
-    if (chosenVoice) {
-        utterance.voice = chosenVoice;
-    }
-
     window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utterance);
+    window.speechSynthesis.speak(createSpeechUtterance(text));
 }
 
 function prepareShuffledOrder() {
@@ -258,6 +430,7 @@ function renderQuestion() {
         nextQuestionBtn.hidden = true;
         questionStarToggle.disabled = true;
         questionEyeToggle.disabled = true;
+        updateAutoPlayButton();
         updateCounts();
         return;
     }
@@ -292,10 +465,12 @@ function renderQuestion() {
     });
 
     updateCounts();
-    speakQuestion();
+    updateAutoPlayButton();
+    if (!autoPlayActive) speakQuestion();
 }
 
 function selectQuiz(index) {
+    stopAutoPlay();
     state.selectedQuizIndex = index;
     state.currentQuestionIndex = 0;
     state.correct = 0;
@@ -308,6 +483,7 @@ function selectQuiz(index) {
 function handleAnswer(selectedButton) {
     if (state.answered) return;
 
+    if (autoPlayActive) stopAutoPlay();
     window.speechSynthesis?.cancel();
 
     const question = getCurrentQuestion();
@@ -315,6 +491,7 @@ function handleAnswer(selectedButton) {
     const optionButtons = Array.from(document.querySelectorAll(".answer-option"));
     const selectedRealLetter = selectedButton.dataset.realLetter;
     state.answered = true;
+    updateAutoPlayButton();
 
     optionButtons.forEach((button) => {
         const realLetter = button.dataset.realLetter;
@@ -384,6 +561,8 @@ function nextQuestion() {
 }
 
 speechToggle.addEventListener("change", () => {
+    if (autoPlayActive) return;
+
     if (!speechToggle.checked) {
         window.speechSynthesis?.cancel();
         return;
@@ -393,32 +572,46 @@ speechToggle.addEventListener("change", () => {
 
 speechRate.addEventListener("input", () => {
     updateSpeechValue();
-    if (speechToggle.checked) {
+    if (speechToggle.checked && !autoPlayActive) {
         speakQuestion();
     }
 });
 
 speechRate.addEventListener("change", () => {
     updateSpeechValue();
-    if (speechToggle.checked) {
+    if (speechToggle.checked && !autoPlayActive) {
         speakQuestion();
     }
 });
 
 speechVoice.addEventListener("change", () => {
-    if (speechToggle.checked) {
+    if (speechToggle.checked && !autoPlayActive) {
         speakQuestion();
     }
 });
 
 window.speechSynthesis?.addEventListener("voiceschanged", () => {
     populateVoiceList();
-    if (speechToggle.checked) {
+    if (speechToggle.checked && !autoPlayActive) {
         speakQuestion();
     }
 });
 
 nextQuestionBtn.addEventListener("click", nextQuestion);
+autoPlayBtn.addEventListener("click", toggleAutoPlay);
+questionNavigation.addEventListener("input", () => {
+    const totalQuestions = state.shuffledOrder.length;
+    const questionNumber = Number(questionNavigation.value);
+    questionNavigationValue.textContent = `${questionNumber}/${totalQuestions}`;
+});
+questionNavigation.addEventListener("change", () => {
+    const totalQuestions = state.shuffledOrder.length;
+    if (!totalQuestions) return;
+
+    stopAutoPlay();
+    state.currentQuestionIndex = Number(questionNavigation.value) - 1;
+    renderQuestion();
+});
 
 document.addEventListener("keydown", (event) => {
     if (event.altKey || event.ctrlKey || event.metaKey) {
@@ -491,6 +684,7 @@ questionEyeToggle.addEventListener("click", () => {
 });
 
 starredOnlyToggle.addEventListener("change", () => {
+    stopAutoPlay();
     state.currentQuestionIndex = 0;
     state.correct = 0;
     state.wrong = 0;

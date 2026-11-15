@@ -262,7 +262,6 @@ function createAutoPlayUtterance(text, onend, runId) {
             autoPlayActive
             && runId === autoPlayRunId
             && event.error !== "canceled"
-            && event.error !== "interrupted"
         ) {
             console.error("Błąd odczytu pytania:", event.error);
             stopAutoPlay();
@@ -277,16 +276,20 @@ function speakAutoPlayQuestion() {
     if (!question || !autoPlayActive || autoPlayPaused) return;
 
     const runId = autoPlayRunId;
-    const questionUtterance = createAutoPlayUtterance(question.question, null, runId);
-    const answerUtterance = createAutoPlayUtterance(
-        question[question.answer],
-        markAutoPlayAnswer,
-        runId
-    );
-
     window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(questionUtterance);
-    window.speechSynthesis.speak(answerUtterance);
+    window.speechSynthesis.speak(createAutoPlayUtterance(
+        question.question,
+        () => {
+            if (autoPlayActive && !autoPlayPaused && runId === autoPlayRunId) {
+                window.speechSynthesis.speak(createAutoPlayUtterance(
+                    question[question.answer],
+                    markAutoPlayAnswer,
+                    runId
+                ));
+            }
+        },
+        runId
+    ));
 }
 
 function toggleAutoPlay() {

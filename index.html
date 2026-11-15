@@ -220,8 +220,20 @@ async function decrypt(data,haslo) {
                     window.quizzesOliwiaAng = [];
                   }
 
+          const hasLoadedQuizzes = [
+            window.quizzes,
+            window.quizzesOliwia,
+            window.quizzesOliwiaAng
+          ].some((items) => Array.isArray(items) && items.some(
+            (quiz) => quiz && typeof quiz.name === "string" && Array.isArray(quiz.quiz)
+          ));
+
+          if (!hasLoadedQuizzes) {
+            throw new Error("Nie wczytano żadnych quizów.");
+          }
+
           const appScript = document.createElement("script");
-          appScript.src = "app.js";
+          appScript.src = "app.js?v=20261115-3";
           appScript.onload = () => {
             unlockOverlay.hidden = true;
             appShell.inert = false;
@@ -232,7 +244,7 @@ async function decrypt(data,haslo) {
           };
           document.body.appendChild(appScript);
         } catch (error) {
-          unlockMessage.textContent = "Nie udało się odblokować quizów. Sprawdź hasło.";
+          unlockMessage.textContent = "Nie udało się wczytać quizów. Sprawdź hasło i spróbuj ponownie.";
           passwordInput.value = "";
           passwordInput.focus();
           unlockButton.disabled = false;
